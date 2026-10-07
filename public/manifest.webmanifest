@@ -1,0 +1,27 @@
+{
+  "id": "./",
+  "name": "forestTimer",
+  "short_name": "forestTimer",
+  "description": "작은 집중, 작은 모험. 숲속 캠프에서 나만의 속도로 집중하는 타이머.",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "theme_color": "#213c36",
+  "background_color": "#213c36",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
