@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { createNotificationService } from './notifications.js';
+import { publicAssetPath, t } from './i18n.js';
 
 const preferenceKey = 'tempo-completion-notifications';
 
@@ -13,8 +14,15 @@ function savePreference(enabled) {
   catch { /* Notifications still work when storage is unavailable. */ }
 }
 
-export function useNotifications() {
-  const [service] = useState(() => createNotificationService({ workerUrl: new URL('sw.js', document.baseURI).href }));
+export function useNotifications(language) {
+  const [service] = useState(() => createNotificationService({
+    workerUrl: new URL(publicAssetPath('sw.js'), document.baseURI).href,
+    errorMessages: {
+      prepare: t(language, 'notificationPrepareFailure'),
+      timeout: t(language, 'notificationPrepareTimeout'),
+      unavailable: t(language, 'notificationUnavailable'),
+    },
+  }));
   const [permission, setPermission] = useState(service.permission);
   const [enabled, setEnabled] = useState(() => service.availability === 'supported' && readPreference() && service.permission() === 'granted');
   const [busy, setBusy] = useState(false);
@@ -56,10 +64,10 @@ export function useNotifications() {
       const next = await service.enable();
       setPermission(next);
       updateEnabled(next === 'granted');
-      if (next === 'default') setMessage('알림 권한을 허용하면 완료 알림을 받을 수 있어요.');
+      if (next === 'default') setMessage(t(language, 'permissionRequired'));
     } catch (error) {
       updateEnabled(false);
-      setMessage(error.message || '알림을 켜지 못했어요. 다시 시도해 주세요.');
+      setMessage(error.message || t(language, 'notificationFailure'));
     } finally { setBusy(false); }
   }
 
@@ -68,7 +76,7 @@ export function useNotifications() {
     try {
       const shown = await service.show(title, {
         body,
-        icon: new URL('notification-icon.svg', document.baseURI).href,
+        icon: new URL(publicAssetPath('notification-icon.svg'), document.baseURI).href,
         tag,
         data: { url: window.location.href },
       });
@@ -78,7 +86,7 @@ export function useNotifications() {
       }
       return shown;
     } catch {
-      setMessage('알림을 보내지 못했어요. 브라우저와 기기의 알림 설정을 확인해 주세요.');
+      setMessage(t(language, 'notificationSendFailure'));
       return false;
     }
   }
@@ -87,22 +95,22 @@ export function useNotifications() {
     setBusy(true);
     setMessage('');
     try {
-      const shown = await notify('forestTimer · 알림이 준비됐어요', '타이머가 끝나면 이렇게 알려드릴게요.', 'tempo-test');
-      if (shown) setMessage('테스트 알림을 보냈어요. 기기 알림을 확인해 주세요.');
+      const shown = await notify(t(language, 'notificationTestTitle'), t(language, 'notificationTestBody'), 'tempo-test');
+      if (shown) setMessage(t(language, 'notificationTestSent'));
     } finally { setBusy(false); }
   }
 
   const help = service.availability === 'unsupported'
-    ? '이 브라우저는 완료 알림을 지원하지 않아요. Chrome 또는 Edge에서 열어 주세요.'
+    ? t(language, 'notificationUnsupported')
     : service.availability === 'insecure'
-      ? '완료 알림은 HTTPS 주소 또는 localhost에서 사용할 수 있어요.'
+      ? t(language, 'notificationInsecure')
       : permission === 'denied'
-        ? '알림이 차단되어 있어요. 브라우저 사이트 설정에서 알림을 허용해 주세요.'
-        : '다른 탭에 있어도 알려드려요. 타이머 탭은 열어 두세요.';
+        ? t(language, 'notificationDenied')
+        : t(language, 'notificationHelp');
 
   return {
     enabled, busy, help, message, toggle, test,
     available: service.availability === 'supported',
-    notifyCompletion: () => notify('forestTimer · 집중 완료!', '잘했어요! 설정한 시간이 끝났어요. 잠시 쉬어가세요.', 'tempo-complete'),
+    notifyCompletion: () => notify(t(language, 'completionTitle'), t(language, 'completionBody'), 'tempo-complete'),
   };
 }

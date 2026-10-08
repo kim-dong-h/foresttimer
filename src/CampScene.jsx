@@ -1,11 +1,13 @@
 import React from 'react';
-import emptyCamp from './assets/night-camp-empty.png';
+import nightCamp from './assets/night-camp-empty.png';
+import dayCamp from './assets/day-camp-empty.png';
 import rabbitSprite from './assets/rabbit-cup-sprite.png';
 import rabbitGeometry from './assets/rabbit-cup-sprite.json';
 import readingRabbitSprite from './assets/rabbit-book-sprite.png';
 import readingRabbitGeometry from './assets/rabbit-book-sprite.json';
 import rainDropSprite from './assets/rain-drop-sprite.png';
 import rainDropGeometry from './assets/rain-drop-sprite.json';
+import { t } from './i18n.js';
 
 const rabbitHeight = 212;
 const rainDrops = [
@@ -65,8 +67,11 @@ function FallingRainDrops() {
   );
 }
 
-export default function CampScene({ status, rainActive }) {
+export default function CampScene({ status, rainActive, mode, language }) {
   const reading = status === 'running';
+  const focused = mode === 'focus';
+  const campBackground = focused ? nightCamp : dayCamp;
+  const timeOfDay = t(language, focused ? 'night' : 'day');
   return (
     <svg
       className={`camp-scene scene-${status}`}
@@ -74,9 +79,9 @@ export default function CampScene({ status, rainActive }) {
       width="1536"
       height="1024"
       role="img"
-      aria-label={reading ? '달빛 아래 모닥불 옆에서 책을 읽는 토끼 탐험가' : '달빛 아래 모닥불 옆에서 컵을 들고 쉬는 토끼 탐험가'}
+      aria-label={t(language, reading ? 'sceneBook' : 'sceneCup', { timeOfDay })}
     >
-      <image href={emptyCamp} width="1536" height="1024" />
+      <image href={campBackground} width="1536" height="1024" />
       <RabbitObject reading={reading} />
       {rainActive && <FallingRainDrops />}
     </svg>

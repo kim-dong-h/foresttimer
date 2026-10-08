@@ -17,6 +17,11 @@ pnpm dev
 
 기본 주소: http://127.0.0.1:5173
 
+다국어 주소는 다음과 같습니다. 정적 빌드에도 각각의 `index.html`이 포함되어 서버 라우팅 없이 사용할 수 있습니다.
+
+- `/kr` — 한국어
+- `/us` — English
+
 ```sh
 pnpm build
 pnpm test
@@ -55,4 +60,4 @@ pnpm test
 설치해도 실행에 서버 연결이 필요합니다. 오프라인 캐시는 제공하지 않으며, 로컬 설치의 경우 개발 서버를 켜 두어야 합니다. 앱 창을 닫으면 타이머와 완료 알림도 계속 실행되지 않습니다.
 
 ## npm 설치 없이 서버 실행
-& "C:\Users\javah\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe" ".\node_modules\vite\bin\vite.js"
+& "C:\Users\javah\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe" ".\node_modules\vite\bin\vite.js" --host 0.0.0.0
