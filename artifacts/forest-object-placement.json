@@ -1,0 +1,135 @@
+{
+  "canvas": {
+    "width": 1536,
+    "height": 1024
+  },
+  "background": "src/assets/spirit-forest-background.png",
+  "placements": [
+    {
+      "kind": "round-shrub",
+      "x": 635,
+      "y": 505,
+      "width": 120
+    },
+    {
+      "kind": "young-sapling",
+      "x": 325,
+      "y": 563,
+      "width": 155
+    },
+    {
+      "kind": "young-sapling",
+      "x": 1215,
+      "y": 563,
+      "width": 155
+    },
+    {
+      "kind": "round-shrub",
+      "x": 174,
+      "y": 628,
+      "width": 240
+    },
+    {
+      "kind": "round-shrub",
+      "x": 1303,
+      "y": 642,
+      "width": 245
+    },
+    {
+      "kind": "grass-tuft",
+      "x": 1052,
+      "y": 653,
+      "width": 65
+    },
+    {
+      "kind": "woodland-fern",
+      "x": 292,
+      "y": 658,
+      "width": 123
+    },
+    {
+      "kind": "grass-tuft",
+      "x": 412,
+      "y": 669,
+      "width": 71
+    },
+    {
+      "kind": "wildflower-clump",
+      "x": 163,
+      "y": 681,
+      "width": 61
+    },
+    {
+      "kind": "woodland-fern",
+      "x": 1370,
+      "y": 702,
+      "width": 160
+    },
+    {
+      "kind": "wildflower-clump",
+      "x": 1370,
+      "y": 711,
+      "width": 63
+    },
+    {
+      "kind": "grass-tuft",
+      "x": 86,
+      "y": 731,
+      "width": 95
+    },
+    {
+      "kind": "grass-tuft",
+      "x": 1244,
+      "y": 742,
+      "width": 88
+    },
+    {
+      "kind": "grass-tuft",
+      "x": 1506,
+      "y": 836,
+      "width": 104
+    },
+    {
+      "kind": "wildflower-clump",
+      "x": 231,
+      "y": 950,
+      "width": 75
+    },
+    {
+      "kind": "woodland-fern",
+      "x": 103,
+      "y": 963,
+      "width": 202
+    },
+    {
+      "kind": "wildflower-clump",
+      "x": 1210,
+      "y": 967,
+      "width": 72
+    },
+    {
+      "kind": "grass-tuft",
+      "x": 681,
+      "y": 971,
+      "width": 59
+    },
+    {
+      "kind": "grass-tuft",
+      "x": 348,
+      "y": 981,
+      "width": 108
+    },
+    {
+      "kind": "woodland-fern",
+      "x": 1430,
+      "y": 985,
+      "width": 223
+    },
+    {
+      "kind": "grass-tuft",
+      "x": 1131,
+      "y": 1000,
+      "width": 112
+    }
+  ]
+}

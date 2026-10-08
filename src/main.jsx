@@ -8,6 +8,10 @@ import ReturnHistory from './ReturnHistory.jsx';
 import { useReturnHistory } from './useReturnHistory.js';
 import TimePresets from './TimePresets.jsx';
 import { DEFAULT_MINUTES } from './presets.js';
+import { useTamagotchi } from './useTamagotchi.js';
+import { evolutionStage } from './tamagotchi.js';
+import { spiritImages } from './tamagotchiAssets.js';
+import TamagotchiStatus from './TamagotchiStatus.jsx';
 import lightRain from './assets/light-rain.mp3';
 import { languageFromPath, t } from './i18n.js';
 import './styles.css';
@@ -48,6 +52,10 @@ function App() {
   const [rainActive, setRainActive] = useState(false);
   const notifications = useNotifications(language);
   const returnHistory = useReturnHistory();
+  const tamagotchi = useTamagotchi();
+  const spiritStage = evolutionStage(tamagotchi.profile.totalMilliseconds);
+  const spiritImage = spiritImages[tamagotchi.profile.species][spiritStage];
+  const spiritName = t(language, tamagotchi.profile.species);
   const notifyCompletion = useRef(notifications.notifyCompletion);
   notifyCompletion.current = notifications.notifyCompletion;
   const running = status === 'running';
@@ -100,6 +108,7 @@ function App() {
   function finishTimer() {
     if (completed.current) return;
     completed.current = true;
+    tamagotchi.stop();
     returnHistory.stop();
     stopResetRain();
     setRemaining(0);
@@ -132,7 +141,9 @@ function App() {
   useEffect(() => {
     if (!running) return;
     const tick = () => {
-      const next = remainingAt(deadline.current, Date.now());
+      const now = Date.now();
+      tamagotchi.tick(now);
+      const next = remainingAt(deadline.current, now);
       setRemaining(next);
       if (next === 0) {
         clearInterval(interval);
@@ -161,6 +172,7 @@ function App() {
   }, [remaining, status]);
 
   function configure(nextMinutes, nextSeconds) {
+    tamagotchi.stop();
     returnHistory.stop();
     stopResetRain();
     setResetPromptOpen(false);
@@ -191,12 +203,14 @@ function App() {
   function toggleTimer() {
     setResetPromptOpen(false);
     if (running) {
-      const next = remainingAt(deadline.current, Date.now());
+      const now = Date.now();
+      const next = remainingAt(deadline.current, now);
       if (next === 0) {
         finishTimer();
         return;
       }
       setRemaining(next);
+      tamagotchi.stop(now);
       returnHistory.stop();
       stopResetRain();
       setStatus('paused');
@@ -211,13 +225,16 @@ function App() {
       audioContext.current?.resume().catch(() => {});
     } catch { /* Browsers without Web Audio still support the timer. */ }
     setRemaining(next);
-    deadline.current = Date.now() + next;
+    const now = Date.now();
+    deadline.current = now + next;
+    tamagotchi.begin(deadline.current, now);
     if (focusMode) returnHistory.begin(deadline.current, status !== 'paused');
     else returnHistory.stop();
     setStatus('running');
   }
 
   function resetTimer() {
+    tamagotchi.stop();
     returnHistory.stop();
     stopResetRain();
     setResetPromptOpen(false);
@@ -252,7 +269,7 @@ function App() {
     if (running) returnHistory.begin(deadline.current, true);
   }
 
-  const statusText = t(language, status);
+  const statusText = t(language, status === 'idle' ? 'ready' : status);
 
   return (
     <>
@@ -297,14 +314,15 @@ function App() {
               <div className="actions">
                 <button className="start-button" onClick={toggleTimer} disabled={duration === 0}><Icon name={running ? 'pause' : 'play'} size={16} /><span>{running ? t(language, 'pause') : status === 'paused' ? t(language, 'resume') : status === 'finished' ? t(language, 'restart') : t(language, 'start')}</span><span className="button-detail" aria-hidden="true">{running ? 'PAUSE' : 'START'}</span></button>
                 <button ref={resetButton} className="reset-button" onClick={requestReset} aria-label={t(language, 'reset')} title={t(language, 'reset')} aria-haspopup={focusMode ? 'dialog' : undefined} aria-expanded={focusMode ? resetPromptOpen : undefined} aria-controls={focusMode && resetPromptOpen ? 'reset-prompt' : undefined}><Icon name="reset" size={20} /></button>
-                {resetPromptOpen && <ResetPrompt language={language} onContinue={continueTimer} onReset={resetTimer} />}
+                {resetPromptOpen && <ResetPrompt language={language} spiritImage={spiritImage} onContinue={continueTimer} onReset={resetTimer} />}
               </div>
               <p className="timer-message" role="status">{duration === 0 ? t(language, 'setTimeFirst') : statusText}</p>
             </div>
             <div className="camp-panel">
-              <div className="scene-header"><span><Icon name="leaf" size={12} /> {t(language, 'camp')}</span><span>01 / 01</span></div>
-              <div className="scene-frame"><CampScene language={language} status={status} rainActive={rainActive} mode={mode} /><button type="button" className="scene-location" onClick={toggleRain} aria-pressed={rainActive} title={rainActive ? t(language, 'rainOff') : t(language, 'rainOn')}><span /> {t(language, 'rain')}</button></div>
-              <div className="quest-dialog"><span className="dialog-pointer" aria-hidden="true">▶</span><div><span className="dialog-name">{status === 'finished' ? 'QUEST CLEAR!' : t(language, 'explorer')}</span><p>{t(language, `rabbit${status[0].toUpperCase()}${status.slice(1)}`)}</p></div><span className="dialog-next" aria-hidden="true">▼</span></div>
+              <div className="scene-header"><span><Icon name="leaf" size={12} /> {t(language, 'camp')}</span><span>{t(language, 'spiritCompanion')}</span></div>
+              <div className="scene-frame"><CampScene language={language} status={status} rainActive={rainActive} spiritImage={spiritImage} spiritName={spiritName} spiritStage={spiritStage} plants={tamagotchi.profile.forestPlants} /><button type="button" className="scene-location" onClick={toggleRain} aria-pressed={rainActive} title={rainActive ? t(language, 'rainOff') : t(language, 'rainOn')}><span /> {t(language, 'rain')}</button></div>
+              <div className="quest-dialog"><span className="dialog-pointer" aria-hidden="true">▶</span><div><span className="dialog-name">{spiritName}</span><p>{t(language, `spirit${status[0].toUpperCase()}${status.slice(1)}`)}</p></div><span className="dialog-next" aria-hidden="true">▼</span></div>
+              <TamagotchiStatus language={language} profile={tamagotchi.profile} saved={tamagotchi.saved} />
               <div className="camp-caption"><Icon name="heart" size={12} /><span>TAKE YOUR TIME. FIND YOUR TEMPO.</span></div>
             </div>
           </div>

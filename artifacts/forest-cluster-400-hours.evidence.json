@@ -1,0 +1,15 @@
+{
+  "background": "/src/assets/spirit-forest-background.png",
+  "count": 800,
+  "hours": "400",
+  "kinds": {
+    "grass-tuft": 160,
+    "round-shrub": 164,
+    "wildflower-clump": 168,
+    "woodland-fern": 149,
+    "young-sapling": 159
+  },
+  "pixelMatched": 800,
+  "stage": "3",
+  "uniqueSlots": 800
+}

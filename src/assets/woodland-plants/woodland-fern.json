@@ -1,0 +1,15 @@
+{
+  "canvasWidth": 1536,
+  "canvasHeight": 1024,
+  "alphaThreshold": 16,
+  "bounds": {
+    "x": 108,
+    "y": 13,
+    "width": 1323,
+    "height": 981
+  },
+  "groundAnchor": {
+    "x": 770,
+    "y": 994
+  }
+}

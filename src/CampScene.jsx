@@ -1,15 +1,10 @@
 import React from 'react';
-import nightCamp from './assets/night-camp-empty.png';
-import dayCamp from './assets/day-camp-empty.png';
-import rabbitSprite from './assets/rabbit-cup-sprite.png';
-import rabbitGeometry from './assets/rabbit-cup-sprite.json';
-import readingRabbitSprite from './assets/rabbit-book-sprite.png';
-import readingRabbitGeometry from './assets/rabbit-book-sprite.json';
+import forestBackground from './assets/spirit-forest-background.png';
 import rainDropSprite from './assets/rain-drop-sprite.png';
 import rainDropGeometry from './assets/rain-drop-sprite.json';
 import { t } from './i18n.js';
+import ForestPlants from './ForestPlants.jsx';
 
-const rabbitHeight = 212;
 const rainDrops = [
   { x: 72, size: 29, delay: '-2.4s', duration: '3.2s' },
   { x: 188, size: 24, delay: '-.8s', duration: '2.8s' },
@@ -25,28 +20,20 @@ const rainDrops = [
   { x: 1470, size: 24, delay: '-1s', duration: '2.8s' },
 ];
 
-function RabbitObject({ reading }) {
-  const geometry = reading ? readingRabbitGeometry : rabbitGeometry;
-  const sprite = reading ? readingRabbitSprite : rabbitSprite;
-  const { x, y, width, height } = geometry.bounds;
-  const rabbitWidth = rabbitHeight * width / height;
+function SpiritObject({ image, stage }) {
+  const size = 310 + stage * 20;
   return (
-    <svg
-      className="camp-rabbit-object"
-      data-object="rabbit"
-      x={480 - rabbitWidth / 2}
-      y={794 - rabbitHeight}
-      width={rabbitWidth}
-      height={rabbitHeight}
-      viewBox={`${x} ${y} ${width} ${height}`}
+    <image
+      className="camp-spirit-object"
+      data-object="spirit"
+      data-evolution-stage={stage}
+      x={480 - size / 2}
+      y={808 - size}
+      width={size}
+      height={size}
+      href={image}
       aria-hidden="true"
-    >
-      <image
-        href={sprite}
-        width={geometry.canvasWidth}
-        height={geometry.canvasHeight}
-      />
-    </svg>
+    />
   );
 }
 
@@ -67,11 +54,8 @@ function FallingRainDrops() {
   );
 }
 
-export default function CampScene({ status, rainActive, mode, language }) {
-  const reading = status === 'running';
-  const focused = mode === 'focus';
-  const campBackground = focused ? nightCamp : dayCamp;
-  const timeOfDay = t(language, focused ? 'night' : 'day');
+export default function CampScene({ status, rainActive, language, spiritImage, spiritName, spiritStage, plants = [] }) {
+  const timeOfDay = t(language, 'day');
   return (
     <svg
       className={`camp-scene scene-${status}`}
@@ -79,10 +63,12 @@ export default function CampScene({ status, rainActive, mode, language }) {
       width="1536"
       height="1024"
       role="img"
-      aria-label={t(language, reading ? 'sceneBook' : 'sceneCup', { timeOfDay })}
+      aria-label={t(language, 'spiritScene', { timeOfDay, name: spiritName })}
     >
-      <image href={campBackground} width="1536" height="1024" />
-      <RabbitObject reading={reading} />
+      <image href={forestBackground} width="1536" height="1024" />
+      <ForestPlants plants={plants} />
+      <SpiritObject image={spiritImage} stage={spiritStage} />
+      <ForestPlants plants={plants} foreground />
       {rainActive && <FallingRainDrops />}
     </svg>
   );

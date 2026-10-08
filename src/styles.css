@@ -65,6 +65,22 @@ h1 { font-size: 44px; font-weight: 400; line-height: 1.5; margin: 0 0 4px; lette
 .dialog-next { position: absolute; bottom: 9px; right: 10px; font-size: 9px; color: #889570; }
 .camp-caption { display: flex; align-items: center; justify-content: center; gap: 7px; color: #a1a68b; font-size: 8px; letter-spacing: .5px; padding-top: 15px; }
 .camp-caption > svg { color: #b4987b; }
+.camp-spirit-object { image-rendering: pixelated; }
+.forest-plant { image-rendering: pixelated; animation: plant-appear .7s ease-out both; }
+@keyframes plant-appear { from { opacity: 0; } to { opacity: 1; } }
+.forest-growth-status { border-top: 1px solid #bdc8a3; margin-top: 12px; padding-top: 11px; }
+.forest-growth-status .spirit-progress { margin-top: 8px; }
+.forest-growth-status p { white-space: pre-line; }
+.spirit-status { margin-top: 12px; padding: 12px 13px; border: 2px solid #a1ad88; background: #e1e7c5; box-shadow: inset 2px 2px #f6f5dc, 2px 2px #c5cbb0; }
+.spirit-status-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #60744e; font-size: 9px; }
+.spirit-stage { padding: 3px 6px; color: #735c31; background: #efd58f; border: 1px solid #c0a868; white-space: nowrap; }
+.spirit-total { display: block; margin: 9px 0; color: #425d36; font-size: 14px; font-weight: 400; line-height: 1.7; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.spirit-progress { height: 9px; border: 1px solid #879d6d; background: #c5d0ab; overflow: hidden; }
+.spirit-progress > span { display: block; height: 100%; background: #839f5c; box-shadow: inset 0 2px #b8cf8c; }
+.spirit-milestones { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 7px; list-style: none; padding: 0; margin: 9px 0 0; color: #879275; font-size: 8px; }
+.spirit-milestones .reached { color: #486939; }
+.spirit-status p { margin: 9px 0 0; color: #6d7e59; font-size: 9px; line-height: 1.8; overflow-wrap: anywhere; }
+.spirit-status .spirit-storage-message { color: #8a6439; }
 .mission-heading { display: flex; align-items: center; gap: 10px; font-size: 11px; line-height: 1.7; margin-bottom: 12px; }
 .mission-number { background: #dddab5; border: 1px solid #b4b991; padding: 3px 6px; font-size: 9px; color: #6d7956; }
 .timer-display { padding: 15px 20px 12px; background: #273e33; color: var(--mint); border: 3px solid #25362b; outline: 2px solid #a2ae8b; box-shadow: inset 3px 3px #192d24, inset -3px -3px #455644; position: relative; }
@@ -135,7 +151,7 @@ h1 { font-size: 44px; font-weight: 400; line-height: 1.5; margin: 0 0 4px; lette
 .reset-prompt-actions button { min-height: 32px; padding: 5px 8px; border: 2px solid #9ba781; background: #e7e8cb; color: #677653; box-shadow: inset 1px 1px #fff9e1; font-size: 10px; }
 .reset-prompt-actions button:first-child { background: #efd088; border-color: #a88b4e; color: #584729; }
 .reset-prompt-actions button:hover { filter: brightness(1.05); }
-.reset-prompt-rabbit { width: 72px; height: 90px; overflow: hidden; image-rendering: pixelated; flex-shrink: 0; filter: drop-shadow(2px 3px 0 #223c3255); }
+.reset-prompt-spirit { width: 72px; height: 90px; object-fit: contain; image-rendering: pixelated; flex-shrink: 0; filter: drop-shadow(2px 3px 0 #223c3255); }
 .timer-message { color: #8c9379; font-size: 9px; text-align: center; line-height: 1.9; margin: 15px 0 0; min-height: 17px; }
 .return-history { margin: 0 26px 20px; padding: 15px 18px; border: 2px solid #a3ae8b; background: #e9ebd0; box-shadow: inset 2px 2px #f9f7e2, 2px 2px #c6ccb0; }
 .return-history-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
