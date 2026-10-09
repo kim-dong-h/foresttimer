@@ -226,3 +226,69 @@ test('plants stay stable in memory if saving becomes blocked across the next thr
   assert.equal(tracker.profile.forestPlants.length, 2);
   assert.deepEqual(tracker.profile.forestPlants[0], first);
 });
+
+test('reset always assigns a different spirit, clears evolution and plants, and persists after reload', () => {
+  for (const species of ['sprout-spirit', 'mushroom-sprite', 'moss-stone-spirit']) {
+    for (const random of [0, .5, .999]) {
+      const storage = storageWith({ version: 1, species, totalMilliseconds: 60 * HOUR_MS, lastCreditedAt: 1000, forestPlants: [{kind: 'grass-tuft', slot: 0}] });
+      const tracker = new SpiritTracker(storage, () => random);
+      tracker.reset(5000);
+      assert.notEqual(tracker.profile.species, species);
+      assert.equal(tracker.profile.totalMilliseconds, 0);
+      assert.equal(evolutionStage(tracker.profile.totalMilliseconds), 0);
+      assert.deepEqual(tracker.profile.forestPlants, []);
+      assert.equal(tracker.saved, true);
+      assert.deepEqual(new SpiritTracker(storage, () => { throw new Error('The reset spirit must persist'); }).profile, tracker.profile);
+    }
+  }
+});
+
+test('reset during a running timer only feeds the new spirit time after confirmation', () => {
+  const tracker = new SpiritTracker(storageWith(), () => 0);
+  tracker.begin(11000, 1000);
+  tracker.tick(2000);
+  tracker.reset(2500);
+  tracker.tick(4500);
+  assert.equal(tracker.profile.totalMilliseconds, 2000);
+  tracker.stop(20000);
+  assert.equal(tracker.profile.totalMilliseconds, 8500);
+});
+
+test('a paused reset never feeds idle time or creates new plants', () => {
+  const tracker = new SpiritTracker(storageWith(), () => 0);
+  tracker.begin(11000, 1000);
+  tracker.stop(2000);
+  tracker.reset(5000);
+  tracker.tick(100000);
+  assert.equal(tracker.profile.totalMilliseconds, 0);
+  assert.deepEqual(tracker.profile.forestPlants, []);
+});
+
+test('another active tab adopts repeated resets without reviving time even when species repeats', () => {
+  const storage = storageWith({ version: 1, species: 'sprout-spirit', totalMilliseconds: HOUR_MS, lastCreditedAt: 0 });
+  const first = new SpiritTracker(storage, () => 0);
+  const second = new SpiritTracker(storage, () => 0);
+  first.begin(11000, 1000);
+  second.reset(2500);
+  second.reset(3000);
+  assert.equal(second.profile.species, 'sprout-spirit');
+  first.tick(5000);
+  assert.equal(first.profile.totalMilliseconds, 2000);
+  assert.deepEqual(first.profile.forestPlants, []);
+  second.refresh();
+  assert.deepEqual(second.profile, first.profile);
+});
+
+test('reset remains effective in memory when saving is blocked and stale storage cannot restore progress', () => {
+  const storage = storageWith({ version: 1, species: 'sprout-spirit', totalMilliseconds: 60 * HOUR_MS, lastCreditedAt: 0 });
+  const tracker = new SpiritTracker(storage, () => 0);
+  tracker.begin(11000, 1000);
+  storage.setItem = () => { throw new Error('Blocked'); };
+  tracker.reset(5000);
+  tracker.refresh();
+  tracker.tick(6000);
+  assert.equal(tracker.saved, false);
+  assert.notEqual(tracker.profile.species, 'sprout-spirit');
+  assert.equal(tracker.profile.totalMilliseconds, 1000);
+  assert.deepEqual(tracker.profile.forestPlants, []);
+});

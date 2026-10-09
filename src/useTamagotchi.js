@@ -16,6 +16,7 @@ export function useTamagotchi() {
   const begin = useCallback((deadline, now) => { tracker.begin(deadline, now); publish(); }, [tracker, publish]);
   const tick = useCallback((now, force = false) => { tracker.tick(now, force); publish(); }, [tracker, publish]);
   const stop = useCallback((now) => { tracker.stop(now); publish(); }, [tracker, publish]);
+  const reset = useCallback((now) => { tracker.reset(now); publish(); }, [tracker, publish]);
 
   useEffect(() => {
     const flush = () => tick(Date.now(), true);
@@ -35,5 +36,5 @@ export function useTamagotchi() {
     };
   }, [tracker, tick, publish]);
 
-  return { profile, saved, begin, tick, stop };
+  return { profile, saved, begin, tick, stop, reset };
 }

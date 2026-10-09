@@ -61,6 +61,18 @@ h1 { font-size: 44px; font-weight: 400; line-height: 1.5; margin: 0 0 4px; lette
 .quest-dialog { display: flex; align-items: flex-start; gap: 10px; margin-top: 14px; padding: 13px 13px 14px; min-height: 89px; border: 2px solid #9ea686; background: #e8e8ca; box-shadow: inset 2px 2px #f9f6de, 2px 2px #c5cbb0; position: relative; }
 .dialog-pointer { color: #8d9c6c; font-size: 10px; margin-top: 2px; }
 .dialog-name { color: #61764d; font-size: 10px; }
+.quest-dialog-content { flex: 1; min-width: 0; }
+.quest-dialog-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: -5px; }
+.spirit-reset-button { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-height: 28px; padding: 4px 7px; border: 1px solid #9ba781; background: #f3efd5; color: #697652; font-size: 9px; white-space: nowrap; }
+.spirit-reset-button:hover { background: #e5dfbc; }
+.spirit-reset-dialog { width: min(420px, calc(100% - 32px)); padding: 22px; border: 3px solid #687c54; background: #f8f1d7; color: #425a37; box-shadow: inset 2px 2px #fffbe9, 5px 5px 0 #233c3266; }
+.spirit-reset-dialog::backdrop { background: #142d27b3; }
+.spirit-reset-dialog h2 { margin: 0 0 14px; font-size: 16px; font-weight: 400; line-height: 1.7; }
+.spirit-reset-dialog p { margin: 0; font-size: 12px; line-height: 1.9; white-space: pre-line; word-break: keep-all; }
+.spirit-reset-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.spirit-reset-actions button { min-height: 38px; padding: 7px 10px; border: 2px solid #9ba781; background: #e7e8cb; color: #677653; font-size: 10px; }
+.spirit-reset-actions button:last-child { background: #efd088; border-color: #a88b4e; color: #584729; }
+.spirit-reset-actions button:hover { filter: brightness(1.05); }
 .quest-dialog p { margin: 6px 0 0; color: #606b54; font-size: 11px; line-height: 1.9; white-space: pre-line; }
 .dialog-next { position: absolute; bottom: 9px; right: 10px; font-size: 9px; color: #889570; }
 .camp-caption { display: flex; align-items: center; justify-content: center; gap: 7px; color: #a1a68b; font-size: 8px; letter-spacing: .5px; padding-top: 15px; }

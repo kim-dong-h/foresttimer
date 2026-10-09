@@ -22,7 +22,7 @@ export function readSpirit(storage) {
     if (data?.version !== 1 || !SPIRIT_SPECIES.includes(data.species)) return null;
     const nonnegativeInteger = (value) => Number.isSafeInteger(value) && value >= 0 ? value : 0;
     const totalMilliseconds = nonnegativeInteger(data.totalMilliseconds);
-    return { version: 1, species: data.species, totalMilliseconds, lastCreditedAt: nonnegativeInteger(data.lastCreditedAt), forestPlants: readForestPlants(data.forestPlants, totalMilliseconds) };
+    return { version: 1, species: data.species, totalMilliseconds, lastCreditedAt: nonnegativeInteger(data.lastCreditedAt), resetAt: nonnegativeInteger(data.resetAt), forestPlants: readForestPlants(data.forestPlants, totalMilliseconds) };
   } catch { return null; }
 }
 
@@ -37,6 +37,7 @@ export class SpiritTracker {
       species: SPIRIT_SPECIES[Math.min(2, Math.max(0, Math.floor(random() * 3)))],
       totalMilliseconds: 0,
       lastCreditedAt: 0,
+      resetAt: 0,
       forestPlants: [],
     };
     this.active = null;
@@ -87,6 +88,25 @@ export class SpiritTracker {
     return this.profile;
   }
 
+  reset(now = Date.now()) {
+    const latest = readSpirit(this.storage);
+    if (latest) this.merge(latest);
+    const choices = SPIRIT_SPECIES.filter(species => species !== this.profile.species);
+    const selected = Math.min(choices.length - 1, Math.max(0, Math.floor(this.random() * choices.length)));
+    this.profile = {
+      version: 1,
+      species: choices[selected],
+      totalMilliseconds: 0,
+      lastCreditedAt: now,
+      resetAt: Math.max(now, this.profile.resetAt + 1),
+      forestPlants: [],
+    };
+    // A running countdown keeps going, feeding the new spirit only from now on.
+    if (this.active) this.active.accountedAt = Math.max(this.active.accountedAt, now);
+    this.save();
+    return this.profile;
+  }
+
   refresh() {
     const latest = readSpirit(this.storage);
     if (latest) {
@@ -98,6 +118,15 @@ export class SpiritTracker {
   }
 
   merge(latest) {
+    // Reset generations prevent an older tab from restoring cleared time or
+    // plants, even after several resets return to the same spirit species.
+    if (latest.resetAt !== this.profile.resetAt) {
+      if (latest.resetAt > this.profile.resetAt) {
+        this.profile = latest;
+        if (this.active) this.active.accountedAt = Math.max(this.active.accountedAt, latest.lastCreditedAt);
+      }
+      return;
+    }
     this.profile = latest.species === this.profile.species ? {
       ...latest,
       totalMilliseconds: Math.max(latest.totalMilliseconds, this.profile.totalMilliseconds),

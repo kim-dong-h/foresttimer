@@ -4,6 +4,7 @@ import { durationFromInputs, formatTime, remainingAt, MAX_TIMER_MINUTES } from '
 import { useNotifications } from './useNotifications.js';
 import CampScene from './CampScene.jsx';
 import ResetPrompt from './ResetPrompt.jsx';
+import SpiritResetDialog from './SpiritResetDialog.jsx';
 import ReturnHistory from './ReturnHistory.jsx';
 import { useReturnHistory } from './useReturnHistory.js';
 import TimePresets from './TimePresets.jsx';
@@ -43,6 +44,7 @@ function App() {
   const [editedMinutes, setEditedMinutes] = useState(String(DEFAULT_MINUTES));
   const [editedSeconds, setEditedSeconds] = useState('00');
   const [resetPromptOpen, setResetPromptOpen] = useState(false);
+  const [spiritResetOpen, setSpiritResetOpen] = useState(false);
   const resetButton = useRef(null);
   const deadline = useRef(0);
   const audioContext = useRef(null);
@@ -258,6 +260,16 @@ function App() {
     resetButton.current?.focus();
   }
 
+  function requestSpiritReset() {
+    setResetPromptOpen(false);
+    setSpiritResetOpen(true);
+  }
+
+  function confirmSpiritReset() {
+    tamagotchi.reset(Date.now());
+    setSpiritResetOpen(false);
+  }
+
   function selectMode(nextMode) {
     setMode(nextMode);
     if (nextMode !== 'focus') {
@@ -321,7 +333,7 @@ function App() {
             <div className="camp-panel">
               <div className="scene-header"><span><Icon name="leaf" size={12} /> {t(language, 'camp')}</span><span>{t(language, 'spiritCompanion')}</span></div>
               <div className="scene-frame"><CampScene language={language} status={status} rainActive={rainActive} spiritImage={spiritImage} spiritName={spiritName} spiritStage={spiritStage} plants={tamagotchi.profile.forestPlants} /><button type="button" className="scene-location" onClick={toggleRain} aria-pressed={rainActive} title={rainActive ? t(language, 'rainOff') : t(language, 'rainOn')}><span /> {t(language, 'rain')}</button></div>
-              <div className="quest-dialog"><span className="dialog-pointer" aria-hidden="true">▶</span><div><span className="dialog-name">{spiritName}</span><p>{t(language, `spirit${status[0].toUpperCase()}${status.slice(1)}`)}</p></div><span className="dialog-next" aria-hidden="true">▼</span></div>
+              <div className="quest-dialog"><span className="dialog-pointer" aria-hidden="true">▶</span><div className="quest-dialog-content"><div className="quest-dialog-heading"><span className="dialog-name">{spiritName}</span><button type="button" className="spirit-reset-button" onClick={requestSpiritReset} aria-label={t(language, 'spiritReset')} title={t(language, 'spiritReset')} aria-haspopup="dialog" aria-expanded={spiritResetOpen}><Icon name="reset" size={12} />{t(language, 'reset')}</button></div><p>{t(language, `spirit${status[0].toUpperCase()}${status.slice(1)}`)}</p></div><span className="dialog-next" aria-hidden="true">▼</span></div>
               <TamagotchiStatus language={language} profile={tamagotchi.profile} saved={tamagotchi.saved} />
               <div className="camp-caption"><Icon name="heart" size={12} /><span>TAKE YOUR TIME. FIND YOUR TEMPO.</span></div>
             </div>
@@ -353,6 +365,7 @@ function App() {
 
       <footer><span>FORESTTIMER © 2026 <span className="footer-divider">/</span> {t(language, 'footer')}</span><span>NO RUSH. JUST YOUR PACE. <Icon name="leaf" size={12} /></span></footer>
       </div>
+      {spiritResetOpen && <SpiritResetDialog language={language} onCancel={() => setSpiritResetOpen(false)} onConfirm={confirmSpiritReset} />}
     </>
   );
 }
