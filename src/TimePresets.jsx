@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { addPreset, DEFAULT_PRESET_SECONDS, loadPresets, MAX_PRESETS, PRESETS_KEY, removePreset } from './presets.js';
 import { MAX_TIMER_MINUTES } from './timer.js';
-import { formatPreset, t } from './i18n.js';
+import { formatSavedPreset, t } from './i18n.js';
 
 function presetError(error, language) {
   if (language !== 'en') return error;
@@ -51,7 +51,7 @@ export default function TimePresets({ duration, running, onSelect, language }) {
     setMinutesInput('');
     setSecondsInput('');
     setError('');
-    const label = formatPreset(result.seconds, language);
+    const label = formatSavedPreset(result.seconds, language);
     setMessage(saved ? t(language, 'savedNotice', { label }) : t(language, 'storageBlocked'));
     onSelect(result.seconds);
   }
@@ -67,7 +67,7 @@ export default function TimePresets({ duration, running, onSelect, language }) {
     try { window.localStorage.setItem(PRESETS_KEY, JSON.stringify(result.presets.map((seconds) => ({ seconds })))); } catch { saved = false; }
     setPresets(result.presets);
     if (duration === value * 1000) onSelect(DEFAULT_PRESET_SECONDS);
-    const label = formatPreset(value, language);
+    const label = formatSavedPreset(value, language);
     setMessage(saved ? t(language, 'deleteNotice', { label }) : t(language, 'deleteStorageBlocked'));
   }
 
@@ -75,11 +75,11 @@ export default function TimePresets({ duration, running, onSelect, language }) {
     <>
       <div className="preset-label"><span>{t(language, 'selectFocusTime')}</span><span>{presets.length} / {MAX_PRESETS} {t(language, 'saved')}</span></div>
       <div className="presets" aria-label={t(language, 'selectFocusTime')}>
-        {presets.map((value) => <div key={value} className="preset-item">
-          <button type="button" className={`preset-select${duration === value * 1000 ? ' selected' : ''}`} aria-label={formatPreset(value, language)} disabled={running} aria-pressed={duration === value * 1000} onClick={() => onSelect(value)}>
-            <span className="preset-indicator" aria-hidden="true">{duration === value * 1000 ? '▶' : '·'}</span><span>{formatPreset(value, language)}<small>{value === DEFAULT_PRESET_SECONDS ? t(language, 'basic') : t(language, 'saved')}</small></span>
+        {presets.map((value) => <div key={value} className={`preset-item${value !== DEFAULT_PRESET_SECONDS ? ' has-delete' : ''}`}>
+          <button type="button" className={`preset-select${duration === value * 1000 ? ' selected' : ''}`} aria-label={formatSavedPreset(value, language)} disabled={running} aria-pressed={duration === value * 1000} onClick={() => onSelect(value)}>
+            <span className="preset-indicator" aria-hidden="true">{duration === value * 1000 ? '▶' : '·'}</span><span className="preset-details"><span className="preset-time">{formatSavedPreset(value, language).split(' ').map(unit => <span key={unit}>{unit}</span>)}</span><small>{value === DEFAULT_PRESET_SECONDS ? t(language, 'basic') : t(language, 'saved')}</small></span>
           </button>
-          {value !== DEFAULT_PRESET_SECONDS && <button type="button" className="preset-delete" aria-label={`${formatPreset(value, language)} ${t(language, 'delete')}`} disabled={running} onClick={() => remove(value)}>×</button>}
+          {value !== DEFAULT_PRESET_SECONDS && <button type="button" className="preset-delete" aria-label={`${formatSavedPreset(value, language)} ${t(language, 'delete')}`} title={`${formatSavedPreset(value, language)} ${t(language, 'delete')}`} disabled={running} onClick={() => remove(value)}><span aria-hidden="true">×</span></button>}
         </div>)}
         {!full && <button ref={addButton} type="button" className="preset-add" aria-label={t(language, 'addFocusTime')} aria-expanded={adding} aria-controls={adding ? 'preset-editor' : undefined} disabled={running} title={t(language, 'wantedTime')} onClick={() => { setAdding(true); setMinutesInput(''); setSecondsInput(''); setError(''); setMessage(''); }}>
           <span><span className="preset-plus" aria-hidden="true">+</span><small>{t(language, 'add')}</small></span>

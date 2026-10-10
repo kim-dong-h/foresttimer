@@ -13,7 +13,8 @@ import { useTamagotchi } from './useTamagotchi.js';
 import { evolutionStage } from './tamagotchi.js';
 import { spiritImages } from './tamagotchiAssets.js';
 import TamagotchiStatus from './TamagotchiStatus.jsx';
-import lightRain from './assets/light-rain.mp3';
+import rainSound from './assets/boons_freak-rain-sound-188158.mp3';
+import { SoundController } from './sounds.js';
 import { languageFromPath, t } from './i18n.js';
 import './styles.css';
 
@@ -28,6 +29,8 @@ function Icon({ name, size = 20, ...props }) {
     bell: ['...##...','..####..','.##..##.','.##..##.','.##..##.','########','........','...##...'],
     star: ['...##...','...##...','########','.######.','..####..','.######.','.##..##.','#......#'],
     heart: ['.##..##.','########','########','########','.######.','..####..','...##...','........'],
+    soundOn: ['...#....','..##..#.','.###...#','####.#.#','####.#.#','.###...#','..##..#.','...#....'],
+    soundOff: ['...#....','..##....','.###.#.#','####..#.','####.#.#','.###....','..##....','...#....'],
   };
   return <svg width={size} height={size} viewBox="0 0 8 8" fill="currentColor" shapeRendering="crispEdges" aria-hidden="true" {...props}>
     {pixels[name].flatMap((row, y) => [...row].map((pixel, x) => pixel === '#' ? <rect key={`${x}-${y}`} x={x} y={y} width="1" height="1" /> : null))}
@@ -47,12 +50,12 @@ function App() {
   const [spiritResetOpen, setSpiritResetOpen] = useState(false);
   const resetButton = useRef(null);
   const deadline = useRef(0);
-  const audioContext = useRef(null);
-  const rainAudio = useRef(null);
+  const [sound] = useState(() => new SoundController());
+  const [soundEnabled, setSoundEnabled] = useState(sound.enabled);
   const rainSource = useRef(null);
   const completed = useRef(false);
   const [rainActive, setRainActive] = useState(false);
-  const notifications = useNotifications(language);
+  const notifications = useNotifications(language, soundEnabled);
   const returnHistory = useReturnHistory();
   const tamagotchi = useTamagotchi();
   const spiritStage = evolutionStage(tamagotchi.profile.totalMilliseconds);
@@ -68,12 +71,13 @@ function App() {
     document.documentElement.lang = language === 'en' ? 'en' : 'ko';
   }, [language]);
 
+  function toggleSound() {
+    sound.setEnabled(!sound.enabled);
+    setSoundEnabled(sound.enabled);
+  }
+
   function stopRain() {
-    const audio = rainAudio.current;
-    if (audio) {
-      audio.pause();
-      audio.currentTime = 0;
-    }
+    sound.stopRain();
     rainSource.current = null;
     setRainActive(false);
   }
@@ -83,18 +87,17 @@ function App() {
   }
 
   function startRain(source) {
-    const audio = rainAudio.current ?? new Audio(lightRain);
-    rainAudio.current = audio;
-    audio.loop = true;
-    audio.volume = 0.3;
-    if (!audio.paused) {
+    if (sound.rainRequested) {
       setRainActive(true);
       return false;
     }
     rainSource.current = source;
     setRainActive(true);
-    audio.play().catch(() => {
-      // A browser may block audio in unusual embedded contexts. The timer still works.
+    sound.startRain(rainSound).catch(() => {
+      if (!sound.rainRequested) {
+        rainSource.current = null;
+        setRainActive(false);
+      }
     });
     return true;
   }
@@ -121,23 +124,7 @@ function App() {
   }
 
   function playCompletionSound() {
-    const context = audioContext.current;
-    if (!context || context.state !== 'running') return;
-    try {
-      [0, 0.25, 0.5].forEach((delay) => {
-        const oscillator = context.createOscillator();
-        const gain = context.createGain();
-        oscillator.connect(gain);
-        gain.connect(context.destination);
-        oscillator.frequency.value = 740;
-        const start = context.currentTime + delay;
-        gain.gain.setValueAtTime(0, start);
-        gain.gain.linearRampToValueAtTime(0.12, start + 0.02);
-        gain.gain.exponentialRampToValueAtTime(0.001, start + 0.2);
-        oscillator.start(start);
-        oscillator.stop(start + 0.22);
-      });
-    } catch { /* Audio is optional; the visual completion always remains available. */ }
+    sound.playCompletion();
   }
 
   useEffect(() => {
@@ -161,13 +148,7 @@ function App() {
     };
   }, [running]);
 
-  useEffect(() => () => {
-    const audio = rainAudio.current;
-    if (audio) {
-      audio.pause();
-      audio.currentTime = 0;
-    }
-  }, []);
+  useEffect(() => () => sound.dispose(), [sound]);
 
   useEffect(() => {
     document.title = status === 'idle' ? 'forestTimer' : `${formatTime(remaining)} · ${status === 'finished' ? t(language, 'statusFinished') : status === 'paused' ? t(language, 'statusPaused') : t(language, 'statusRunning')} — forestTimer`;
@@ -221,11 +202,7 @@ function App() {
     const next = status === 'finished' ? duration : remaining;
     if (next <= 0) return;
     completed.current = false;
-    try {
-      const Audio = window.AudioContext || window.webkitAudioContext;
-      if (Audio && !audioContext.current) audioContext.current = new Audio();
-      audioContext.current?.resume().catch(() => {});
-    } catch { /* Browsers without Web Audio still support the timer. */ }
+    sound.prepare();
     setRemaining(next);
     const now = Date.now();
     deadline.current = now + next;
@@ -289,6 +266,12 @@ function App() {
       <main>
         <div className="intro">
           <h1>forestTimer</h1>
+          <button type="button" className="sound-toggle" role="switch" aria-label={t(language, 'sound')} aria-checked={soundEnabled} title={t(language, soundEnabled ? 'soundDisable' : 'soundEnable')} onClick={toggleSound}>
+            <Icon name={soundEnabled ? 'soundOn' : 'soundOff'} size={14} />
+            <span>{t(language, 'sound')}</span>
+            <span className="sound-toggle-track" aria-hidden="true"><i /></span>
+            <span className="sound-toggle-state" aria-hidden="true">{soundEnabled ? 'ON' : 'OFF'}</span>
+          </button>
         </div>
 
         <section className={`timer-card is-${status}`} aria-label="forestTimer">
@@ -332,7 +315,7 @@ function App() {
             </div>
             <div className="camp-panel">
               <div className="scene-header"><span><Icon name="leaf" size={12} /> {t(language, 'camp')}</span><span>{t(language, 'spiritCompanion')}</span></div>
-              <div className="scene-frame"><CampScene language={language} status={status} rainActive={rainActive} spiritImage={spiritImage} spiritName={spiritName} spiritStage={spiritStage} plants={tamagotchi.profile.forestPlants} /><button type="button" className="scene-location" onClick={toggleRain} aria-pressed={rainActive} title={rainActive ? t(language, 'rainOff') : t(language, 'rainOn')}><span /> {t(language, 'rain')}</button></div>
+              <div className="scene-frame"><CampScene language={language} status={status} rainActive={rainActive} spiritImage={spiritImage} spiritName={spiritName} spiritStage={spiritStage} plants={tamagotchi.profile.forestPlants} focusMode={focusMode} /><button type="button" className="scene-location" onClick={toggleRain} aria-pressed={rainActive} title={rainActive ? t(language, 'rainOff') : t(language, 'rainOn')}><span /> {t(language, 'rain')}</button></div>
               <div className="quest-dialog"><span className="dialog-pointer" aria-hidden="true">▶</span><div className="quest-dialog-content"><div className="quest-dialog-heading"><span className="dialog-name">{spiritName}</span><button type="button" className="spirit-reset-button" onClick={requestSpiritReset} aria-label={t(language, 'spiritReset')} title={t(language, 'spiritReset')} aria-haspopup="dialog" aria-expanded={spiritResetOpen}><Icon name="reset" size={12} />{t(language, 'reset')}</button></div><p>{t(language, `spirit${status[0].toUpperCase()}${status.slice(1)}`)}</p></div><span className="dialog-next" aria-hidden="true">▼</span></div>
               <TamagotchiStatus language={language} profile={tamagotchi.profile} saved={tamagotchi.saved} />
               <div className="camp-caption"><Icon name="heart" size={12} /><span>TAKE YOUR TIME. FIND YOUR TEMPO.</span></div>

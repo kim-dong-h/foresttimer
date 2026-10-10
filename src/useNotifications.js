@@ -14,7 +14,7 @@ function savePreference(enabled) {
   catch { /* Notifications still work when storage is unavailable. */ }
 }
 
-export function useNotifications(language) {
+export function useNotifications(language, soundEnabled = true) {
   const [service] = useState(() => createNotificationService({
     workerUrl: new URL(publicAssetPath('sw.js'), document.baseURI).href,
     errorMessages: {
@@ -28,6 +28,8 @@ export function useNotifications(language) {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState('');
   const enabledRef = useRef(enabled);
+  const soundEnabledRef = useRef(soundEnabled);
+  soundEnabledRef.current = soundEnabled;
 
   function updateEnabled(next) {
     enabledRef.current = next;
@@ -78,6 +80,7 @@ export function useNotifications(language) {
         body,
         icon: new URL(publicAssetPath('notification-icon.svg'), document.baseURI).href,
         tag,
+        silent: !soundEnabledRef.current,
         data: { url: window.location.href },
       });
       if (!shown) {

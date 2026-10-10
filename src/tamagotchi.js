@@ -3,7 +3,7 @@ import { growForest, readForestPlants } from './forestGrowth.js';
 export const TAMAGOTCHI_KEY = 'foresttimer-tamagotchi';
 export const SPIRIT_SPECIES = ['sprout-spirit', 'mushroom-sprite', 'moss-stone-spirit'];
 export const HOUR_MS = 60 * 60 * 1000;
-export const EVOLUTION_HOURS = [10, 30, 60];
+export const EVOLUTION_HOURS = [1, 3, 6];
 
 export function evolutionStage(totalMilliseconds) {
   return EVOLUTION_HOURS.filter((hours) => totalMilliseconds >= hours * HOUR_MS).length;

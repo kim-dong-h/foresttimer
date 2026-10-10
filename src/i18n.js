@@ -33,6 +33,7 @@ const copy = {
     ready: '준비됐나요? 오늘의 집중 퀘스트를 시작하세요.', running: '숲의 정령과 함께, 지금에 집중하세요.', paused: '잠깐 쉬어가도 괜찮아요. 모험은 기다려줄게요.', finished: '퀘스트 완료! 수고했어요. 잠시 쉬어가세요.', setTimeFirst: '먼저 집중할 시간을 설정해 주세요.',
     timerSettings: '타이머 시간 설정', remainingTime: '남은 시간 {time}', statusFinished: '완료!', statusPaused: '일시정지', statusRunning: '집중 중', tip: '모든 모험은 작은 한 걸음에서 시작됩니다.', footer: '작은 집중, 작은 모험',
     camp: 'FOREST GROVE', rainOn: '빗소리 재생', rainOff: '빗소리 끄기', rain: '빗소리',
+    sound: '소리', soundEnable: '소리 켜기', soundDisable: '소리 끄기',
     sceneCup: '{timeOfDay} 모닥불 옆에서 컵을 들고 쉬는 토끼 탐험가', sceneBook: '{timeOfDay} 모닥불 옆에서 책을 읽는 토끼 탐험가', day: '햇살 아래', night: '달빛 아래',
     rabbitIdle: '서두르지 않아도 괜찮아.\n우리, 작은 집중부터 시작할까?', rabbitRunning: '좋아, 한 번에 하나씩!\n지금은 집중할 시간이야.', rabbitPaused: '숨을 고르는 것도 모험의 일부야.\n준비되면 다시 출발하자.', rabbitFinished: '오늘의 작은 모험을 해냈어!\n이제 조금 쉬어도 좋아.', explorer: '작은 숲의 탐험가',
     notification: '완료 알림', notificationTest: '테스트', notificationOn: '켜짐', notificationTurningOn: '준비 중', notificationEnable: '켜기',
@@ -58,6 +59,7 @@ const copy = {
     ready: 'Ready? Start your focus quest for today.', running: 'Stay in the moment with your forest spirit.', paused: 'It is okay to pause. The adventure will wait.', finished: 'Quest complete! Great work. Take a break.', setTimeFirst: 'Set a focus time first.',
     timerSettings: 'Set timer duration', remainingTime: '{time} remaining', statusFinished: 'Complete!', statusPaused: 'Paused', statusRunning: 'Focusing', tip: 'Every adventure begins with one small step.', footer: 'Small focus, small adventure',
     camp: 'FOREST GROVE', rainOn: 'Play rain sounds', rainOff: 'Stop rain sounds', rain: 'Rain sounds',
+    sound: 'Sound', soundEnable: 'Turn sound on', soundDisable: 'Turn sound off',
     sceneCup: 'Rabbit explorer relaxing with a cup by the campfire {timeOfDay}', sceneBook: 'Rabbit explorer reading a book by the campfire {timeOfDay}', day: 'in the sunlight', night: 'under moonlight',
     rabbitIdle: 'There is no need to rush.\nShall we start with a small focus session?', rabbitRunning: 'One thing at a time!\nNow is time to focus.', rabbitPaused: 'Taking a breath is part of the adventure.\nStart again when you are ready.', rabbitFinished: 'You completed today’s small adventure!\nYou can take a break now.', explorer: 'Little forest explorer',
     notification: 'Completion alerts', notificationTest: 'Test', notificationOn: 'On', notificationTurningOn: 'Preparing', notificationEnable: 'Enable',
@@ -80,6 +82,13 @@ export function formatPreset(totalSeconds, language) {
   const seconds = totalSeconds % 60;
   const units = language === 'en' ? ['h', 'm', 's'] : ['시간', '분', '초'];
   return [[hours, units[0]], [minutes, units[1]], [seconds, units[2]]].filter(([value]) => value).map(([value, unit]) => `${value}${unit}`).join(' ');
+}
+
+export function formatSavedPreset(totalSeconds, language) {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  const units = language === 'en' ? ['m', 's'] : ['분', '초'];
+  return [[minutes, units[0]], [seconds, units[1]]].filter(([value]) => value).map(([value, unit]) => `${value}${unit}`).join(' ');
 }
 
 export function formatElapsed(milliseconds, language) {

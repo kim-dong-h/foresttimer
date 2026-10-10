@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko"><meta charset="utf-8"><title>빗소리 반복 검증</title>
+<style>body{font:16px system-ui;background:#eff3e7;color:#254735;padding:32px}button{padding:12px}pre{white-space:pre-wrap;line-height:1.7}</style>
+<h1>실제 MP3 반복 구간 검증</h1>
+<p>현재 빗소리 파일과 앱의 반복 처리 코드를 사용합니다. 성장 기록은 변경하지 않습니다.</p>
+<button id="run">검증 실행</button><pre id="result">대기 중</pre>
+<script type="module">
+import { SoundController } from '../src/sounds.js';
+import rainUrl from '../src/assets/boons_freak-rain-sound-188158.mp3';
+const result = document.querySelector('#result');
+document.querySelector('#run').onclick = async () => {
+  const sound = new SoundController({ storage: { getItem: () => 'false', setItem() {} } });
+  result.textContent = '실제 음원 디코딩 및 반복 경계 렌더링 중';
+  try {
+    await sound.startRain(rainUrl);
+    const loop = await sound.rainBuffer;
+    const offline = new OfflineAudioContext(loop.numberOfChannels, loop.sampleRate * 8, loop.sampleRate);
+    const source = offline.createBufferSource();
+    source.buffer = loop;
+    source.loop = true;
+    source.connect(offline.destination);
+    source.start(0, loop.duration - 4);
+    const rendered = await offline.startRendering();
+    const windowSize = Math.round(loop.sampleRate * .02);
+    const rms = [];
+    const samples = rendered.getChannelData(0);
+    for (let start = 0; start + windowSize <= samples.length; start += windowSize) {
+      let energy = 0;
+      for (let i = start; i < start + windowSize; i++) energy += samples[i] ** 2;
+      rms.push(Math.sqrt(energy / windowSize));
+    }
+    const boundary = loop.getChannelData(0);
+    const minimumRms = Math.min(...rms);
+    const sourceBeforeMute = sound.rainNode;
+    sound.setEnabled(true);
+    await new Promise(resolve => setTimeout(resolve, 50));
+    const onGain = sound.masterGain.gain.value;
+    sound.setEnabled(false);
+    await new Promise(resolve => setTimeout(resolve, 50));
+    const offGain = sound.masterGain.gain.value;
+    const sameSource = sourceBeforeMute === sound.rainNode;
+    const output = {
+      status: minimumRms > .0001 && sameSource && onGain === 1 && offGain === 0 ? 'PASS' : 'FAIL',
+      loopSeconds: loop.duration,
+      sampleRate: loop.sampleRate,
+      channels: loop.numberOfChannels,
+      minimum20msRmsAcross8SecondJoin: minimumRms,
+      median20msRms: [...rms].sort((a,b)=>a-b)[Math.floor(rms.length/2)],
+      adjacentSampleJumpAtLoop: Math.abs(boundary[0] - boundary.at(-1)),
+      nativeLoopEnabled: sound.rainNode.loop,
+      mutePreservesSource: sameSource,
+      onGain, offGain,
+    };
+    sound.stopRain();
+    output.stopped = sound.rainNode === null && !sound.rainRequested;
+    result.textContent = JSON.stringify(output, null, 2);
+  } catch (error) { result.textContent = 'FAIL: ' + error.stack; }
+  finally { sound.dispose(); }
+};
+</script></html>

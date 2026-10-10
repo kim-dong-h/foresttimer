@@ -19,15 +19,17 @@ test('assigns one of the three spirits once and restores it without rerolling', 
   }
 });
 
-test('evolves exactly at 10, 30, and 60 cumulative hours, ending at stage 3', () => {
+test('evolves exactly at 1, 3, and 6 cumulative hours, ending at stage 3', () => {
+  assert.deepEqual(EVOLUTION_HOURS, [1, 3, 6]);
   assert.equal(evolutionStage(0), 0);
   for (const [index, hours] of EVOLUTION_HOURS.entries()) {
     assert.equal(evolutionStage(hours * HOUR_MS - 1), index);
     assert.equal(evolutionStage(hours * HOUR_MS), index + 1);
   }
   assert.equal(evolutionStage(100 * HOUR_MS), 3);
-  assert.deepEqual(evolutionProgress(20 * HOUR_MS), { stage: 1, nextHours: 30, fraction: 0.5 });
-  assert.deepEqual(evolutionProgress(80 * HOUR_MS), { stage: 3, nextHours: null, fraction: 1 });
+  assert.deepEqual(evolutionProgress(2 * HOUR_MS), { stage: 1, nextHours: 3, fraction: 0.5 });
+  assert.deepEqual(evolutionProgress(4.5 * HOUR_MS), { stage: 2, nextHours: 6, fraction: 0.5 });
+  assert.deepEqual(evolutionProgress(8 * HOUR_MS), { stage: 3, nextHours: null, fraction: 1 });
 });
 
 test('credits only active time across pauses and repeated sessions', () => {
@@ -78,7 +80,7 @@ test('reload restores cumulative growth but does not feed time while the timer i
 });
 
 test('crosses a threshold during a session and keeps evolution after reset', () => {
-  const storage = storageWith({ version: 1, species: 'mushroom-sprite', totalMilliseconds: 10 * HOUR_MS - 500, lastCreditedAt: 0 });
+  const storage = storageWith({ version: 1, species: 'mushroom-sprite', totalMilliseconds: HOUR_MS - 500, lastCreditedAt: 0 });
   const tracker = new SpiritTracker(storage);
   tracker.begin(11000, 1000);
   tracker.tick(2000);
@@ -171,7 +173,7 @@ test('overlapping tabs retain the first saved random plant and do not earn dupli
   assert.deepEqual(first.profile.forestPlants, second.profile.forestPlants);
 });
 
-test('growth continues past 20 hours to 400, preserves existing draws, and evolves the spirit at 60', () => {
+test('growth continues past 20 hours to 400, preserves existing draws, and keeps the spirit fully evolved', () => {
   const storedPlants = Array.from({ length: 40 }, (_, slot) => ({ kind: 'grass-tuft', slot }));
   const storage = storageWith({ version: 1, species: 'sprout-spirit', totalMilliseconds: 20 * HOUR_MS, lastCreditedAt: 0, forestPlants: storedPlants });
   const tracker = new SpiritTracker(storage, () => 0.25);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 import forestBackground from './assets/spirit-forest-background.png';
 import rainDropSprite from './assets/rain-drop-sprite.png';
 import rainDropGeometry from './assets/rain-drop-sprite.json';
@@ -54,18 +54,30 @@ function FallingRainDrops() {
   );
 }
 
-export default function CampScene({ status, rainActive, language, spiritImage, spiritName, spiritStage, plants = [] }) {
+export default function CampScene({ status, rainActive, language, spiritImage, spiritName, spiritStage, plants = [], focusMode = false }) {
+  const lightingId = useId();
+  const sunlightId = `forest-focus-sunlight-${lightingId}`;
   const timeOfDay = t(language, 'day');
   return (
     <svg
-      className={`camp-scene scene-${status}`}
+      className={`camp-scene scene-${status}${focusMode ? ' is-focus-mode' : ''}`}
       viewBox="0 0 1536 1024"
       width="1536"
       height="1024"
       role="img"
       aria-label={t(language, 'spiritScene', { timeOfDay, name: spiritName })}
     >
-      <image href={forestBackground} width="1536" height="1024" />
+      <defs>
+        <radialGradient id={sunlightId} gradientUnits="userSpaceOnUse" cx="520" cy="320" r="620">
+          <stop offset="0%" stopColor="#ffe6a2" stopOpacity=".04" />
+          <stop offset="55%" stopColor="#ffe6a2" stopOpacity=".02" />
+          <stop offset="100%" stopColor="#ffe6a2" stopOpacity="0" />
+        </radialGradient>
+      </defs>
+      <image className="camp-forest-background" href={forestBackground} width="1536" height="1024" />
+      <g className={`camp-focus-lighting${focusMode ? ' is-active' : ''}`} pointerEvents="none" aria-hidden="true">
+        <rect width="1536" height="1024" fill={`url(#${sunlightId})`} />
+      </g>
       <ForestPlants plants={plants} />
       <SpiritObject image={spiritImage} stage={spiritStage} />
       <ForestPlants plants={plants} foreground />
