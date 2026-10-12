@@ -16,7 +16,8 @@ function savePreference(enabled) {
 
 export function useNotifications(language, soundEnabled = true) {
   const [service] = useState(() => createNotificationService({
-    workerUrl: new URL(publicAssetPath('sw.js'), document.baseURI).href,
+    workerUrl: typeof document === 'undefined' ? './sw.js' : new URL(publicAssetPath('sw.js'), document.baseURI).href,
+    ...(typeof document === 'undefined' ? { secureContext: true, notification: { permission: 'default' }, serviceWorker: {} } : {}),
     errorMessages: {
       prepare: t(language, 'notificationPrepareFailure'),
       timeout: t(language, 'notificationPrepareTimeout'),

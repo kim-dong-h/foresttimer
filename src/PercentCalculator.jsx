@@ -4,6 +4,7 @@ import AveragingSimulator from './AveragingSimulator.jsx';
 import BrowserStorageNotice from './BrowserStorageNotice.jsx';
 import { pt, percentTimerHref } from './percentI18n.js';
 import './percent.css';
+import PageGuide from './PageGuide.jsx';
 
 export default function PercentCalculator({ language = 'ko' }) {
   const [base, setBase] = useState('5000');
@@ -16,7 +17,7 @@ export default function PercentCalculator({ language = 'ko' }) {
   const percentInvalid = Boolean(percent.trim()) && !calculatePercent('0', percent);
   const subtracting = result?.adjustment.startsWith('-');
   const adjustment = result ? displayAmount(result.adjustment.replace(/^-/, '')) : '—';
-  const timerHref = percentTimerHref(window.location.pathname, language);
+  const timerHref = percentTimerHref(globalThis.location?.pathname ?? (language === 'en' ? '/percent/us/' : '/percent/'), language);
 
   function reset() {
     setBase('');
@@ -25,6 +26,7 @@ export default function PercentCalculator({ language = 'ko' }) {
   }
 
   return (
+    <>
     <div className="app-shell percent-shell">
       <main className="percent-main">
         <header className="percent-intro">
@@ -64,5 +66,7 @@ export default function PercentCalculator({ language = 'ko' }) {
       <BrowserStorageNotice language={language} />
       <footer><span>FORESTTIMER © 2026</span><span>{pt(language, 'footer')}</span></footer>
     </div>
+    <PageGuide language={language} kind="calculator" />
+    </>
   );
 }

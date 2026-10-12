@@ -1,0 +1,173 @@
+[
+  {
+    "original": "src/assets/spirit-forest-background.png",
+    "optimized": "src/assets/spirit-forest-background.webp",
+    "beforeBytes": 2768877,
+    "afterBytes": 1782828,
+    "width": 1536,
+    "height": 1024,
+    "visiblePixelsIdentical": true
+  },
+  {
+    "original": "src/assets/rain-drop-sprite.png",
+    "optimized": "src/assets/rain-drop-sprite.webp",
+    "beforeBytes": 146805,
+    "afterBytes": 63216,
+    "width": 1295,
+    "height": 1214,
+    "visiblePixelsIdentical": true
+  },
+  {
+    "original": "src/assets/tamagotchi/concepts/sprout-spirit.png",
+    "optimized": "src/assets/tamagotchi/concepts/sprout-spirit.webp",
+    "beforeBytes": 661582,
+    "afterBytes": 426862,
+    "width": 1254,
+    "height": 1254,
+    "visiblePixelsIdentical": true
+  },
+  {
+    "original": "src/assets/tamagotchi/evolutions/sprout-spirit-evolution-1.png",
+    "optimized": "src/assets/tamagotchi/evolutions/sprout-spirit-evolution-1.webp",
+    "beforeBytes": 840323,
+    "afterBytes": 570682,
+    "width": 1254,
+    "height": 1254,
+    "visiblePixelsIdentical": true
+  },
+  {
+    "original": "src/assets/tamagotchi/evolutions/sprout-spirit-evolution-2.png",
+    "optimized": "src/assets/tamagotchi/evolutions/sprout-spirit-evolution-2.webp",
+    "beforeBytes": 1158918,
+    "afterBytes": 842896,
+    "width": 1254,
+    "height": 1254,
+    "visiblePixelsIdentical": true
+  },
+  {
+    "original": "src/assets/tamagotchi/evolutions/sprout-spirit-evolution-3.png",
+    "optimized": "src/assets/tamagotchi/evolutions/sprout-spirit-evolution-3.webp",
+    "beforeBytes": 1080224,
+    "afterBytes": 759442,
+    "width": 1254,
+    "height": 1254,
+    "visiblePixelsIdentical": true
+  },
+  {
+    "original": "src/assets/tamagotchi/concepts/mushroom-sprite.png",
+    "optimized": "src/assets/tamagotchi/concepts/mushroom-sprite.webp",
+    "beforeBytes": 675527,
+    "afterBytes": 424990,
+    "width": 1254,
+    "height": 1254,
+    "visiblePixelsIdentical": true
+  },
+  {
+    "original": "src/assets/tamagotchi/evolutions/mushroom-sprite-evolution-1.png",
+    "optimized": "src/assets/tamagotchi/evolutions/mushroom-sprite-evolution-1.webp",
+    "beforeBytes": 772610,
+    "afterBytes": 513018,
+    "width": 1254,
+    "height": 1254,
+    "visiblePixelsIdentical": true
+  },
+  {
+    "original": "src/assets/tamagotchi/evolutions/mushroom-sprite-evolution-2.png",
+    "optimized": "src/assets/tamagotchi/evolutions/mushroom-sprite-evolution-2.webp",
+    "beforeBytes": 1054463,
+    "afterBytes": 735728,
+    "width": 1254,
+    "height": 1254,
+    "visiblePixelsIdentical": true
+  },
+  {
+    "original": "src/assets/tamagotchi/evolutions/mushroom-sprite-evolution-3.png",
+    "optimized": "src/assets/tamagotchi/evolutions/mushroom-sprite-evolution-3.webp",
+    "beforeBytes": 1152627,
+    "afterBytes": 792964,
+    "width": 1254,
+    "height": 1254,
+    "visiblePixelsIdentical": true
+  },
+  {
+    "original": "src/assets/tamagotchi/concepts/moss-stone-spirit.png",
+    "optimized": "src/assets/tamagotchi/concepts/moss-stone-spirit.webp",
+    "beforeBytes": 763164,
+    "afterBytes": 504158,
+    "width": 1254,
+    "height": 1254,
+    "visiblePixelsIdentical": true
+  },
+  {
+    "original": "src/assets/tamagotchi/evolutions/moss-stone-spirit-evolution-1.png",
+    "optimized": "src/assets/tamagotchi/evolutions/moss-stone-spirit-evolution-1.webp",
+    "beforeBytes": 1012734,
+    "afterBytes": 740160,
+    "width": 1254,
+    "height": 1254,
+    "visiblePixelsIdentical": true
+  },
+  {
+    "original": "src/assets/tamagotchi/evolutions/moss-stone-spirit-evolution-2.png",
+    "optimized": "src/assets/tamagotchi/evolutions/moss-stone-spirit-evolution-2.webp",
+    "beforeBytes": 1347125,
+    "afterBytes": 1036502,
+    "width": 1254,
+    "height": 1254,
+    "visiblePixelsIdentical": true
+  },
+  {
+    "original": "src/assets/tamagotchi/evolutions/moss-stone-spirit-evolution-3.png",
+    "optimized": "src/assets/tamagotchi/evolutions/moss-stone-spirit-evolution-3.webp",
+    "beforeBytes": 1439562,
+    "afterBytes": 1055670,
+    "width": 1254,
+    "height": 1254,
+    "visiblePixelsIdentical": true
+  },
+  {
+    "original": "src/assets/woodland-plants/soft-pixel-v2/grass.png",
+    "optimized": "src/assets/woodland-plants/soft-pixel-v2/grass.webp",
+    "beforeBytes": 1450895,
+    "afterBytes": 552308,
+    "width": 1536,
+    "height": 1024,
+    "visiblePixelsIdentical": true
+  },
+  {
+    "original": "src/assets/woodland-plants/soft-pixel-v2/fern.png",
+    "optimized": "src/assets/woodland-plants/soft-pixel-v2/fern.webp",
+    "beforeBytes": 1768855,
+    "afterBytes": 992818,
+    "width": 1536,
+    "height": 1024,
+    "visiblePixelsIdentical": true
+  },
+  {
+    "original": "src/assets/woodland-plants/soft-pixel-v2/shrub.png",
+    "optimized": "src/assets/woodland-plants/soft-pixel-v2/shrub.webp",
+    "beforeBytes": 1171630,
+    "afterBytes": 890050,
+    "width": 1378,
+    "height": 1141,
+    "visiblePixelsIdentical": true
+  },
+  {
+    "original": "src/assets/woodland-plants/wildflower-clump.png",
+    "optimized": "src/assets/woodland-plants/wildflower-clump.webp",
+    "beforeBytes": 880244,
+    "afterBytes": 660262,
+    "width": 1254,
+    "height": 1254,
+    "visiblePixelsIdentical": true
+  },
+  {
+    "original": "src/assets/woodland-plants/young-sapling.png",
+    "optimized": "src/assets/woodland-plants/young-sapling.webp",
+    "beforeBytes": 801240,
+    "afterBytes": 606594,
+    "width": 1254,
+    "height": 1254,
+    "visiblePixelsIdentical": true
+  }
+]

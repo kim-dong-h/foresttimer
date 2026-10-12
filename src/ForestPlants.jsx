@@ -1,20 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { FOREST_SLOTS, PLANT_WIDTH_FACTORS } from './forestGrowth.js';
 import { forestPlantAssets } from './forestPlantAssets.js';
 import { FOREST_PIXEL_SIZE, loadPlantTextures } from './forestPlantTextures.js';
 
 export default function ForestPlants({ plants, foreground = false, assets = forestPlantAssets }) {
-  const [textures, setTextures] = useState(null);
+  const [loaded, setLoaded] = useState(null);
+  const textures = loaded?.assets === assets ? loaded.textures : null;
+  const visiblePlants = useMemo(() => plants.filter(({ slot }) => (FOREST_SLOTS[slot].y > 808) === foreground)
+    .sort((a, b) => FOREST_SLOTS[a.slot].y - FOREST_SLOTS[b.slot].y), [plants, foreground]);
+  // A stable key prevents reloading when timer ticks preserve the same plants.
+  const requestKey = useMemo(() => JSON.stringify([...new Set(visiblePlants.map(({ kind, slot }) => {
+    const pixels = Math.max(6, Math.min(64, Math.round(FOREST_SLOTS[slot].width * PLANT_WIDTH_FACTORS[kind] / FOREST_PIXEL_SIZE)));
+    return `${kind}:${pixels}`;
+  }))].sort()), [visiblePlants]);
   useEffect(() => {
     let active = true;
-    setTextures(null);
-    loadPlantTextures(assets).then(value => { if (active) setTextures(value); });
+    const requests = JSON.parse(requestKey).map(key => {
+      const [kind, pixels] = key.split(':');
+      return { kind, pixels: Number(pixels) };
+    });
+    if (requests.length) loadPlantTextures(assets, requests).then(value => {
+      if (active) setLoaded({ assets, textures: value });
+    });
     return () => { active = false; };
-  }, [assets]);
+  }, [assets, requestKey]);
   return (
     <g className="forest-plants" pointerEvents="none" aria-hidden="true">
-      {plants.filter(({ slot }) => (FOREST_SLOTS[slot].y > 808) === foreground)
-        .sort((a, b) => FOREST_SLOTS[a.slot].y - FOREST_SLOTS[b.slot].y)
+      {visiblePlants
         .map(({ kind, slot }) => {
           const { x, y, width, brightness = 1, opacity = 1 } = FOREST_SLOTS[slot];
           const widthFactor = PLANT_WIDTH_FACTORS[kind];

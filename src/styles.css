@@ -234,6 +234,13 @@ footer > span:last-child { display: flex; align-items: center; gap: 10px; font-s
 .is-finished .dialog-name { color: #9a7b39; }
 @keyframes blink { 50% { opacity: .25; } }
 
+.page-guide { position: relative; z-index: 1; width: calc(100% - 44px); max-width: 960px; margin: 20px auto 36px; padding: 20px; border: 1px solid #56715b; color: #c1c9ad; background: #233d32; font-size: 12px; line-height: 1.9; overflow-wrap: anywhere; }
+.page-guide h2 { margin: 0 0 10px; color: #e4dfb8; font-size: 16px; font-weight: 400; }
+.page-guide h3 { font-size: 13px; font-weight: 400; color: #e4dfb8; }
+.page-guide p { margin: 10px 0; }
+.page-guide summary { cursor: pointer; min-height: 44px; padding: 10px 0; color: #efd088; }
+.page-guide li { margin: 8px 0; }
+
 @media (min-width: 1440px) {
   main { padding-top: 46px; }
   .timer-card { margin-top: 35px; }

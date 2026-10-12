@@ -1,6 +1,6 @@
 import React, { useId } from 'react';
-import forestBackground from './assets/spirit-forest-background.png';
-import rainDropSprite from './assets/rain-drop-sprite.png';
+import forestBackground from './assets/spirit-forest-background.webp';
+import rainDropSprite from './assets/rain-drop-sprite.webp';
 import rainDropGeometry from './assets/rain-drop-sprite.json';
 import { t } from './i18n.js';
 import ForestPlants from './ForestPlants.jsx';
@@ -21,6 +21,7 @@ const rainDrops = [
 ];
 
 function SpiritObject({ image, stage }) {
+  if (!image) return null;
   const size = 310 + stage * 20;
   return (
     <image

@@ -18,6 +18,7 @@ import rainSound from './assets/boons_freak-rain-sound-188158.mp3';
 import { SoundController } from './sounds.js';
 import { languageFromPath, publicAssetPath, t } from './i18n.js';
 import './styles.css';
+import PageGuide from './PageGuide.jsx';
 
 function Icon({ name, size = 20, ...props }) {
   const pixels = {
@@ -38,8 +39,7 @@ function Icon({ name, size = 20, ...props }) {
   </svg>;
 }
 
-function App() {
-  const language = languageFromPath();
+export function App({ language = languageFromPath(), pathname = globalThis.location?.pathname ?? '/' } = {}) {
   const [duration, setDuration] = useState(DEFAULT_MINUTES * 60 * 1000);
   const [remaining, setRemaining] = useState(duration);
   const [status, setStatus] = useState('idle');
@@ -60,7 +60,8 @@ function App() {
   const returnHistory = useReturnHistory();
   const tamagotchi = useTamagotchi();
   const spiritStage = evolutionStage(tamagotchi.profile.totalMilliseconds);
-  const spiritImage = spiritImages[tamagotchi.profile.species][spiritStage];
+  // Personalized art is chosen in the browser, avoiding a redundant default download.
+  const spiritImage = typeof window === 'undefined' ? undefined : spiritImages[tamagotchi.profile.species][spiritStage];
   const spiritName = t(language, tamagotchi.profile.species);
   const notifyCompletion = useRef(notifications.notifyCompletion);
   notifyCompletion.current = notifications.notifyCompletion;
@@ -152,8 +153,8 @@ function App() {
   useEffect(() => () => sound.dispose(), [sound]);
 
   useEffect(() => {
-    document.title = status === 'idle' ? 'forestTimer' : `${formatTime(remaining)} · ${status === 'finished' ? t(language, 'statusFinished') : status === 'paused' ? t(language, 'statusPaused') : t(language, 'statusRunning')} — forestTimer`;
-  }, [remaining, status]);
+    document.title = status === 'idle' ? t(language, 'pageTitle') : `${formatTime(remaining)} · ${status === 'finished' ? t(language, 'statusFinished') : status === 'paused' ? t(language, 'statusPaused') : t(language, 'statusRunning')} — forestTimer`;
+  }, [remaining, status, language]);
 
   function configure(nextMinutes, nextSeconds) {
     tamagotchi.stop();
@@ -348,17 +349,20 @@ function App() {
       </main>
 
       <BrowserStorageNotice language={language} />
-      <footer><span>FORESTTIMER © 2026 <span className="footer-divider">/</span> {t(language, 'footer')}</span><a className="footer-calculator-link" href={publicAssetPath(language === 'en' ? 'percent/us/' : 'percent/')}>{t(language, 'percentCalculatorLink')} <span aria-hidden="true">→</span></a></footer>
+      <footer><span>FORESTTIMER © 2026 <span className="footer-divider">/</span> {t(language, 'footer')}</span><a className="footer-calculator-link" href={publicAssetPath(language === 'en' ? 'percent/us/' : 'percent/', pathname)}>{t(language, 'percentCalculatorLink')} <span aria-hidden="true">→</span></a></footer>
       </div>
       {spiritResetOpen && <SpiritResetDialog language={language} onCancel={() => setSpiritResetOpen(false)} onConfirm={confirmSpiritReset} />}
+      <PageGuide language={language} kind="timer" />
     </>
   );
 }
 
 // Directory URLs without a trailing slash can reach the static HTML fallback.
 // Normalize before mounting the timer so /percent opens its own entry page.
-if (/\/percent(?:\/us)?$/.test(window.location.pathname)) {
-  window.location.replace(`${window.location.pathname}/${window.location.search}${window.location.hash}`);
-} else {
-  createRoot(document.getElementById('root')).render(<App />);
+if (typeof window !== 'undefined') {
+  if (/\/percent(?:\/us)?$/.test(window.location.pathname)) {
+    window.location.replace(`${window.location.pathname}/${window.location.search}${window.location.hash}`);
+  } else {
+    createRoot(document.getElementById('root')).render(<App />);
+  }
 }

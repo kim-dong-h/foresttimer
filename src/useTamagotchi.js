@@ -3,6 +3,10 @@ import { SpiritTracker, TAMAGOTCHI_KEY } from './tamagotchi.js';
 
 export function useTamagotchi() {
   const [tracker] = useState(() => {
+    // A build renders a neutral first visit without reading or writing user data.
+    if (typeof window === 'undefined') {
+      return new SpiritTracker({ getItem: () => null, setItem() {} }, () => 0);
+    }
     let storage;
     try { storage = window.localStorage; } catch { /* The pet still grows in memory. */ }
     return new SpiritTracker(storage);

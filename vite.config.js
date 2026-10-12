@@ -5,6 +5,7 @@ import { fileURLToPath, URL } from 'node:url';
 export default defineConfig({
   base: './',
   build: {
+    manifest: true,
     rollupOptions: {
       input: {
         main: fileURLToPath(new URL('./index.html', import.meta.url)),

@@ -1,0 +1,49 @@
+{
+  "requests": [
+    {
+      "url": "/assets/main-w6Sc-S83.js",
+      "bytes": 46104
+    },
+    {
+      "url": "/assets/styles-Y7NVgtTj.js",
+      "bytes": 236521
+    },
+    {
+      "url": "/assets/styles-B_RpxZou.css",
+      "bytes": 23098
+    },
+    {
+      "url": "/assets/Galmuri11-DfQIlyDK.woff2",
+      "bytes": 504736
+    },
+    {
+      "url": "/assets/spirit-forest-background-BIKCzFOR.png",
+      "bytes": 2768877
+    },
+    {
+      "url": "/assets/sprout-spirit-Bytgbt9H.png",
+      "bytes": 661582
+    },
+    {
+      "url": "/assets/grass-B-dPpjSy.png",
+      "bytes": 1450895
+    },
+    {
+      "url": "/assets/fern-BEE5fBxe.png",
+      "bytes": 1768855
+    },
+    {
+      "url": "/assets/shrub-C1SHeOwx.png",
+      "bytes": 1171630
+    },
+    {
+      "url": "/assets/wildflower-clump-D3ndANgd.png",
+      "bytes": 880244
+    },
+    {
+      "url": "/assets/young-sapling-C1G2HM1B.png",
+      "bytes": 801240
+    }
+  ],
+  "width": 390
+}

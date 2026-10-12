@@ -1,0 +1,35 @@
+{
+  "requests": [
+    {
+      "url": "/assets/PageGuide-IP_OpRDs.js",
+      "bytes": 243427
+    },
+    {
+      "url": "/assets/main-DjpPfV9m.js",
+      "bytes": 47120
+    },
+    {
+      "url": "/assets/PageGuide-tZMbJGjz.css",
+      "bytes": 23597
+    },
+    {
+      "url": "/assets/spirit-forest-background-nnKAaTHy.webp",
+      "bytes": 1782828
+    },
+    {
+      "url": "/assets/Galmuri11-DfQIlyDK.woff2",
+      "bytes": 504736
+    },
+    {
+      "url": "/assets/sprout-spirit-CA5eGBAA.webp",
+      "bytes": 426862
+    }
+  ],
+  "width": 390,
+  "canvases": 0,
+  "comparison": {
+    "beforeBytes": 10313782,
+    "afterBytes": 3028570,
+    "reductionPercent": 70.63569891238733
+  }
+}
