@@ -16,7 +16,7 @@ import { spiritImages } from './tamagotchiAssets.js';
 import TamagotchiStatus from './TamagotchiStatus.jsx';
 import rainSound from './assets/boons_freak-rain-sound-188158.mp3';
 import { SoundController } from './sounds.js';
-import { languageFromPath, publicAssetPath, t } from './i18n.js';
+import { formatPreset, languageFromPath, publicAssetPath, t } from './i18n.js';
 import './styles.css';
 import PageGuide from './PageGuide.jsx';
 
@@ -318,7 +318,7 @@ export function App({ language = languageFromPath(), pathname = globalThis.locat
             <div className="camp-panel">
               <div className="scene-header"><span><Icon name="leaf" size={12} /> {t(language, 'camp')}</span><span>{t(language, 'spiritCompanion')}</span></div>
               <div className="scene-frame"><CampScene language={language} status={status} rainActive={rainActive} spiritImage={spiritImage} spiritName={spiritName} spiritStage={spiritStage} plants={tamagotchi.profile.forestPlants} focusMode={focusMode} /><button type="button" className="scene-location" onClick={toggleRain} aria-pressed={rainActive} title={rainActive ? t(language, 'rainOff') : t(language, 'rainOn')}><span /> {t(language, 'rain')}</button></div>
-              <div className="quest-dialog"><span className="dialog-pointer" aria-hidden="true">▶</span><div className="quest-dialog-content"><div className="quest-dialog-heading"><span className="dialog-name">{spiritName}</span><button type="button" className="spirit-reset-button" onClick={requestSpiritReset} aria-label={t(language, 'spiritReset')} title={t(language, 'spiritReset')} aria-haspopup="dialog" aria-expanded={spiritResetOpen}><Icon name="reset" size={12} />{t(language, 'reset')}</button></div><p>{t(language, `spirit${status[0].toUpperCase()}${status.slice(1)}`)}</p></div><span className="dialog-next" aria-hidden="true">▼</span></div>
+              <div className="quest-dialog"><span className="dialog-pointer" aria-hidden="true">▶</span><div className="quest-dialog-content"><div className="quest-dialog-heading"><span className="dialog-name">{spiritName}</span><button type="button" className="spirit-reset-button" onClick={requestSpiritReset} aria-label={t(language, 'spiritReset')} title={t(language, 'spiritReset')} aria-haspopup="dialog" aria-expanded={spiritResetOpen}><Icon name="reset" size={12} />{t(language, 'reset')}</button></div><p>{t(language, `spirit${status[0].toUpperCase()}${status.slice(1)}`)}</p><p data-today-milliseconds={tamagotchi.todayMilliseconds}>{t(language, 'spiritToday', { time: formatPreset(Math.floor(tamagotchi.todayMilliseconds / 1000), language) || t(language, 'spiritZeroTime') })}</p></div><span className="dialog-next" aria-hidden="true">▼</span></div>
               <TamagotchiStatus language={language} profile={tamagotchi.profile} saved={tamagotchi.saved} />
               <div className="camp-caption"><Icon name="heart" size={12} /><span>TAKE YOUR TIME. FIND YOUR TEMPO.</span></div>
             </div>
