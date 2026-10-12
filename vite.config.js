@@ -10,6 +10,8 @@ export default defineConfig({
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
         us: fileURLToPath(new URL('./us/index.html', import.meta.url)),
         kr: fileURLToPath(new URL('./kr/index.html', import.meta.url)),
+        percent: fileURLToPath(new URL('./percent/index.html', import.meta.url)),
+        percentUs: fileURLToPath(new URL('./percent/us/index.html', import.meta.url)),
       },
     },
   },

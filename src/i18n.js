@@ -18,6 +18,8 @@ export function publicAssetPath(filename, pathname = globalThis.location?.pathna
 
 const copy = {
   ko: {
+    percentCalculatorLink: '퍼센트 계산기로 가기',
+    browserStorageNotice: '저장 내용은 현재 브라우저 저장소에만 보관됩니다. 브라우저 데이터를 삭제하면 사라지며, 다른 기기·브라우저와 공유되지 않으니 유의해 주세요.',
     'sprout-spirit': '새싹 정령', 'mushroom-sprite': '버섯 요정', 'moss-stone-spirit': '이끼 돌 정령',
     spiritCompanion: '나의 숲 정령', spiritScene: '{timeOfDay} 숲속 빈터에 있는 {name}',
     spiritGrowth: '정령 성장', spiritTotal: '함께한 타이머 시간', spiritZeroTime: '0초', spiritBase: '첫 만남', spiritStage: '{stage}차 진화',
@@ -44,6 +46,8 @@ const copy = {
     notificationUnsupported: '이 브라우저는 완료 알림을 지원하지 않아요. Chrome 또는 Edge에서 열어 주세요.', notificationInsecure: '완료 알림은 HTTPS 주소 또는 localhost에서 사용할 수 있어요.', notificationDenied: '알림이 차단되어 있어요. 브라우저 사이트 설정에서 알림을 허용해 주세요.', notificationHelp: '다른 탭에 있어도 알려드려요. 타이머 탭은 열어 두세요.', permissionRequired: '알림 권한을 허용하면 완료 알림을 받을 수 있어요.', notificationFailure: '알림을 켜지 못했어요. 다시 시도해 주세요.', notificationSendFailure: '알림을 보내지 못했어요. 브라우저와 기기의 알림 설정을 확인해 주세요.', notificationPrepareFailure: '알림 준비에 실패했어요. 다시 시도해 주세요.', notificationPrepareTimeout: '알림 준비 시간이 초과됐어요. 다시 시도해 주세요.', notificationUnavailable: '이 환경에서는 완료 알림을 사용할 수 없어요.', notificationTestTitle: 'forestTimer · 알림이 준비됐어요', notificationTestBody: '타이머가 끝나면 이렇게 알려드릴게요.', notificationTestSent: '테스트 알림을 보냈어요. 기기 알림을 확인해 주세요.', completionTitle: 'forestTimer · 집중 완료!', completionBody: '잘했어요! 설정한 시간이 끝났어요. 잠시 쉬어가세요.',
   },
   en: {
+    percentCalculatorLink: 'Percent calculator',
+    browserStorageNotice: 'Saved data is kept only in this browser’s storage. Clearing browser data removes it, and it is not shared across devices or browsers.',
     'sprout-spirit': 'Sprout Spirit', 'mushroom-sprite': 'Mushroom Fairy', 'moss-stone-spirit': 'Moss Stone Spirit',
     spiritCompanion: 'MY FOREST SPIRIT', spiritScene: '{name} in a forest clearing {timeOfDay}',
     spiritGrowth: 'Spirit growth', spiritTotal: 'Timer time together', spiritZeroTime: '0s', spiritBase: 'First meeting', spiritStage: 'Evolution {stage}',

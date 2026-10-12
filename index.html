@@ -6,6 +6,12 @@
     <meta name="theme-color" content="#213c36" />
     <meta name="description" content="나만의 속도로 집중하는 심플한 타이머. 시간을 설정하고 바로 시작하세요." />
     <title>forestTimer</title>
+    <script>
+      // Normalize nested calculator URLs before relative module assets load.
+      if (/\/percent(?:\/us)?$/.test(window.location.pathname)) {
+        window.location.replace(`${window.location.pathname}/${window.location.search}${window.location.hash}`);
+      }
+    </script>
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="apple-touch-icon" href="./icons/icon-192.png" />

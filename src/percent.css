@@ -1,0 +1,96 @@
+.percent-shell { max-width: 1060px; }
+.percent-main { padding-top: 36px; }
+.percent-intro { width: 100%; text-align: center; }
+.percent-back { display: block; width: fit-content; color: #bccca9; font-size: 11px; text-decoration: none; margin-bottom: 28px; padding: 8px 0; }
+.percent-back:hover { color: #f0d18c; }
+.percent-eyebrow { margin: 0 0 10px; font-size: 10px; letter-spacing: 3px; color: #b9cda0; }
+.percent-intro h1 { font-size: clamp(26px, 5vw, 36px); letter-spacing: -1px; margin: 0 0 10px; }
+.percent-intro > p:last-child { font-size: 12px; line-height: 1.8; color: #c1c9ad; margin: 0; }
+.percent-card { width: 100%; margin-top: 28px; color: var(--ink); background: var(--paper); border: 3px solid #1a2e25; box-shadow: 0 0 0 3px #809079, 0 0 0 6px #172c25, 6px 8px 0 6px #142820; }
+.percent-card-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 22px; background: #e2e1bd; border-bottom: 3px solid var(--ink); box-shadow: inset 0 3px #f6f2d6; font-size: 11px; }
+.percent-card-header > span:last-child { font-size: 9px; color: #60744e; white-space: nowrap; }
+.percent-card-body { padding: 28px; }
+.percent-inputs { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .7fr) minmax(0, 1.1fr); gap: 18px; }
+.percent-inputs:not(.simulator-inputs) { align-items: end; }
+.percent-inputs label { min-width: 0; display: block; color: #536c46; font-size: 12px; }
+.percent-inputs input { display: block; width: 100%; min-width: 0; height: 56px; margin-top: 10px; padding: 10px 12px; background: #fff9e8; color: #344e2f; border: 2px solid #a2ae8b; box-shadow: inset 2px 2px #e0e3c7; font-size: 22px; border-radius: 0; }
+.percent-inputs input::placeholder { color: #9aa58a; font-size: 14px; }
+.percent-inputs input[aria-invalid='true'] { border-color: #a86248; }
+.percent-rate-field { display: block; position: relative; }
+.percent-rate-field input { padding-right: 35px; }
+.percent-rate-field > span { position: absolute; right: 13px; top: 50%; transform: translateY(-50%); font-size: 19px; color: #8a9a76; pointer-events: none; }
+.percent-help, .percent-error { margin: 12px 0 0; font-size: 10px; line-height: 1.9; }
+.percent-help { color: #758663; }
+.percent-error { color: #995536; }
+.percent-total-field { min-width: 0; }
+.percent-result-label { display: block; color: #536c46; font-size: 12px; }
+.percent-total { display: flex; align-items: center; min-width: 0; min-height: 56px; margin-top: 10px; padding: 10px 12px; border: 2px solid #688454; background: #273e33; box-shadow: inset 2px 2px #192d24; color: #efd58f; font-size: 22px; line-height: 1.45; overflow-wrap: anywhere; }
+.percent-equation { margin: 12px 0 0; font-size: 11px; line-height: 1.9; color: #6d805b; overflow-wrap: anywhere; }
+.percent-actions { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
+.percent-actions button { min-height: 40px; padding: 9px 11px; border: 2px solid #a4ae8b; background: #e7e8cb; color: #60744e; box-shadow: inset 1px 1px #fff9e1, 0 2px #c6ccb0; font-size: 10px; }
+.percent-actions button:hover { background: #dce4b9; }
+.percent-actions button:active { transform: translateY(2px); box-shadow: inset 1px 1px #b3bf96; }
+.percent-actions .percent-reset { background: #efd088; border-color: #a98b4f; color: #584729; }
+.simulator-card { margin-bottom: 32px; }
+.percent-card-header h2 { margin: 0; font-size: 14px; font-weight: 400; }
+.simulator-intro { margin: 0 0 22px; color: #637852; font-size: 11px; line-height: 1.9; }
+.simulator-inputs { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr); }
+.simulator-inputs label small { color: #859274; font-size: 10px; }
+.simulator-summary { font-size: 11px; color: #6c8058; line-height: 1.9; margin: 20px 0 12px; overflow-wrap: anywhere; }
+.simulator-table-scroll { overflow-x: auto; border: 2px solid #a1ad88; scrollbar-color: #98aa7c #e9ecd2; }
+.simulator-table { width: 100%; min-width: 900px; border-collapse: collapse; font-size: 12px; font-variant-numeric: tabular-nums; }
+.simulator-table th, .simulator-table td { padding: 14px 12px; text-align: right; border-bottom: 1px solid #c5ceab; line-height: 1.6; }
+.simulator-table thead th { background: #e0e5c2; color: #5c734b; font-weight: 400; font-size: 11px; white-space: nowrap; }
+.simulator-table tbody th { text-align: left; color: #5e754b; font-weight: 400; white-space: nowrap; }
+.simulator-table th:first-child { text-align: left; }
+.simulator-table tbody th small { display: block; color: #899679; font-size: 8px; }
+.simulator-table tbody tr:nth-child(even) { background: #edf0d8; }
+.simulator-table tbody tr:last-child { background: #dce5ba; }
+.simulator-table tbody tr:last-child th, .simulator-table tbody tr:last-child td { border-bottom: 0; }
+.simulator-price { color: #41673d; overflow-wrap: anywhere; max-width: 280px; }
+.simulator-target { color: #66532c; background: #eedfa64d; overflow-wrap: anywhere; max-width: 200px; }
+.simulator-profit { color: #41673d; overflow-wrap: anywhere; max-width: 200px; }
+.simulator-empty { padding: 18px; margin: 20px 0 0; background: #e5e9cc; color: #758663; font-size: 11px; line-height: 1.9; }
+.simulator-scroll-hint { display: none; }
+html[lang='en'] .simulator-card .percent-card-header { flex-wrap: wrap; }
+html[lang='en'] .simulator-table thead th { white-space: normal; }
+.percent-actions button:disabled { opacity: .5; }
+.simulator-save-toolbar { justify-content: flex-start; }
+.simulator-save-notice { margin: 0; color: #60744e; font-size: 11px; line-height: 1.8; overflow-wrap: anywhere; }
+.simulator-saved-list { margin-top: 20px; padding-top: 18px; border-top: 1px solid #c5ceab; }
+.simulator-saved-list h3 { margin: 0; font-size: 12px; font-weight: 400; color: #536c46; }
+.simulator-saved-list ul { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 10px; padding: 0; margin: 12px 0 0; list-style: none; }
+.simulator-saved-list li { min-width: 0; }
+.simulator-saved-list button { width: 100%; min-height: 64px; padding: 12px; text-align: left; background: #e7e8cb; border: 2px solid #a4ae8b; color: #536c46; overflow-wrap: anywhere; }
+.simulator-saved-list button:hover { background: #dce4b9; }
+.simulator-saved-list strong { display: block; font-size: 12px; font-weight: 400; line-height: 1.7; }
+.simulator-saved-list button span { display: block; margin-top: 6px; color: #758663; font-size: 9px; line-height: 1.9; }
+.simulation-save-dialog { width: min(420px, calc(100% - 32px)); padding: 24px; border: 3px solid #687c54; background: #f8f1d7; color: #425a37; box-shadow: inset 2px 2px #fffbe9, 5px 5px 0 #233c3266; max-height: calc(100% - 32px); overflow-y: auto; }
+.simulation-save-dialog::backdrop { background: #142d27b3; }
+.simulation-save-dialog h2 { margin: 0; font-size: 16px; font-weight: 400; line-height: 1.7; }
+.simulation-save-dialog label { display: block; margin-top: 20px; font-size: 12px; }
+.simulation-save-dialog input { width: 100%; min-width: 0; height: 48px; margin-top: 10px; padding: 10px; background: #fff9e8; color: #344e2f; border: 2px solid #a2ae8b; border-radius: 0; font-size: 16px; }
+.simulation-save-dialog input[aria-invalid='true'] { border-color: #a86248; }
+.simulation-save-dialog input::placeholder { font-size: 12px; }
+.simulation-save-actions { justify-content: flex-end; }
+@media (max-width: 1024px) {
+  .simulator-scroll-hint { display: block; color: #899679; font-size: 9px; line-height: 1.8; }
+}
+@media (max-width: 680px) {
+  .percent-main { padding-top: 16px; }
+  .percent-back { margin-bottom: 18px; }
+  .percent-card-header { padding: 12px 15px; font-size: 9px; }
+  .percent-card-body { padding: 20px; }
+  .percent-inputs { grid-template-columns: minmax(0, 1fr) minmax(0, .9fr) minmax(0, 1.1fr); gap: 8px; }
+  .percent-inputs label, .percent-result-label { font-size: 10px; }
+  .percent-inputs input, .percent-total { padding: 8px; font-size: 16px; min-height: 50px; }
+  html[lang='en'] .percent-total { padding-inline: 4px; font-size: clamp(11px, 3.3vw, 16px); }
+  .percent-inputs input { height: 50px; }
+  .percent-rate-field input { padding-right: 18px; padding-left: 6px; }
+  .percent-rate-field > span { right: 5px; font-size: 13px; }
+  .percent-actions .percent-reset { flex: 1; }
+  .percent-card-header h2 { font-size: 11px; }
+  .percent-card-header > span:last-child { font-size: 8px; }
+  .simulator-inputs { grid-template-columns: 1fr; gap: 18px; }
+  .simulator-inputs input { font-size: 20px; }
+}

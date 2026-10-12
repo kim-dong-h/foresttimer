@@ -8,6 +8,7 @@ import SpiritResetDialog from './SpiritResetDialog.jsx';
 import ReturnHistory from './ReturnHistory.jsx';
 import { useReturnHistory } from './useReturnHistory.js';
 import TimePresets from './TimePresets.jsx';
+import BrowserStorageNotice from './BrowserStorageNotice.jsx';
 import { DEFAULT_MINUTES } from './presets.js';
 import { useTamagotchi } from './useTamagotchi.js';
 import { evolutionStage } from './tamagotchi.js';
@@ -15,7 +16,7 @@ import { spiritImages } from './tamagotchiAssets.js';
 import TamagotchiStatus from './TamagotchiStatus.jsx';
 import rainSound from './assets/boons_freak-rain-sound-188158.mp3';
 import { SoundController } from './sounds.js';
-import { languageFromPath, t } from './i18n.js';
+import { languageFromPath, publicAssetPath, t } from './i18n.js';
 import './styles.css';
 
 function Icon({ name, size = 20, ...props }) {
@@ -346,11 +347,18 @@ function App() {
         <div className="gentle-note"><span className="tip-label">TIP!</span><p>{t(language, 'tip')}</p><span className="note-spark" aria-hidden="true">✦</span></div>
       </main>
 
-      <footer><span>FORESTTIMER © 2026 <span className="footer-divider">/</span> {t(language, 'footer')}</span><span>NO RUSH. JUST YOUR PACE. <Icon name="leaf" size={12} /></span></footer>
+      <BrowserStorageNotice language={language} />
+      <footer><span>FORESTTIMER © 2026 <span className="footer-divider">/</span> {t(language, 'footer')}</span><a className="footer-calculator-link" href={publicAssetPath(language === 'en' ? 'percent/us/' : 'percent/')}>{t(language, 'percentCalculatorLink')} <span aria-hidden="true">→</span></a></footer>
       </div>
       {spiritResetOpen && <SpiritResetDialog language={language} onCancel={() => setSpiritResetOpen(false)} onConfirm={confirmSpiritReset} />}
     </>
   );
 }
 
-createRoot(document.getElementById('root')).render(<App />);
+// Directory URLs without a trailing slash can reach the static HTML fallback.
+// Normalize before mounting the timer so /percent opens its own entry page.
+if (/\/percent(?:\/us)?$/.test(window.location.pathname)) {
+  window.location.replace(`${window.location.pathname}/${window.location.search}${window.location.hash}`);
+} else {
+  createRoot(document.getElementById('root')).render(<App />);
+}
