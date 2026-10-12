@@ -97,6 +97,16 @@ pnpm test
 
 새 페이지를 추가하거나 운영 도메인을 변경할 때 사이트맵과 robots.txt의 주소도 수정하세요.
 
+### Cloudflare Workers Static Assets
+
+`wrangler.jsonc`에서 Worker 이름 `foresttimer`, 호환성 날짜 `2026-10-06`, 배포 폴더 `./dist`를 지정합니다. 각 공개 페이지는 별도의 HTML 파일을 가지므로 `assets.not_found_handling`은 `none`으로 설정합니다. 존재하지 않는 파일을 타이머 HTML로 대신 응답하는 SPA fallback을 사용하지 않습니다. `public/_headers`는 사이트맵에 `application/xml; charset=utf-8`, robots.txt에 `text/plain; charset=utf-8`를 적용하며, 빌드 결과물에 함께 복사됩니다.
+
+Cloudflare Builds의 빌드 명령은 `pnpm run build`, 배포 명령은 `npx wrangler deploy`입니다. 기존 명령에 `--assets=./dist --name=foresttimer --compatibility-date=2026-10-06`이 있어도 설정 값은 동일합니다. 재배포 전에 `dist/sitemap.xml`, `dist/robots.txt`, `dist/_headers`가 모두 포함되어 있는지 확인하세요.
+
+`_headers` 규칙은 Cloudflare Static Assets와 Wrangler 로컬 서버에서 적용됩니다. Vite 개발·미리보기 서버는 이 파일의 규칙을 적용하지 않으므로 HTTP 응답 검증에는 `npx wrangler dev --local`을 사용하세요.
+
+운영 사이트의 사이트맵이 HTTP 200과 XML로 정상 응답하는데 Search Console이 **가져올 수 없음**을 표시하면 해당 사이트맵의 상세 오류와 마지막 읽은 시각을 확인하고, **URL 검사 → 실제 URL 테스트**에서 크롤링 허용 및 페이지 가져오기 성공 여부를 확인한 뒤 다시 제출하세요. Googlebot User-Agent로 직접 요청하는 검사는 실제 Google 크롤러 IP에 대한 Cloudflare 보안 정책까지 검증하지는 못합니다. 실제 Google 요청이 실패하면 Cloudflare 보안 이벤트에서 차단·챌린지 여부를 확인하세요.
+
 ## 앱으로 설치
 
 `manifest.webmanifest`와 192·512px PNG 앱 아이콘을 포함합니다. Chrome 또는 Edge에서 설치하면 forestTimer 아이콘으로 실행할 수 있으며, 브라우저 탭 대신 별도 앱 창으로 열립니다. `dist/`의 매니페스트와 `icons/` 폴더도 함께 배포하세요.

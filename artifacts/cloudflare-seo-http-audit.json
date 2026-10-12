@@ -1,0 +1,170 @@
+[
+  {
+    "Environment": "Wrangler local",
+    "Path": "/sitemap.xml",
+    "Method": "Get",
+    "Status": 200,
+    "ContentType": "application/xml; charset=utf-8"
+  },
+  {
+    "Environment": "Wrangler local",
+    "Path": "/sitemap.xml",
+    "Method": "Head",
+    "Status": 200,
+    "ContentType": "application/xml; charset=utf-8"
+  },
+  {
+    "Environment": "Wrangler local",
+    "Path": "/robots.txt",
+    "Method": "Get",
+    "Status": 200,
+    "ContentType": "text/plain; charset=utf-8"
+  },
+  {
+    "Environment": "Wrangler local",
+    "Path": "/robots.txt",
+    "Method": "Head",
+    "Status": 200,
+    "ContentType": "text/plain; charset=utf-8"
+  },
+  {
+    "Environment": "Wrangler local",
+    "Path": "/",
+    "Method": "Get",
+    "Status": 200,
+    "ContentType": "text/html; charset=utf-8"
+  },
+  {
+    "Environment": "Wrangler local",
+    "Path": "/",
+    "Method": "Head",
+    "Status": 200,
+    "ContentType": "text/html; charset=utf-8"
+  },
+  {
+    "Environment": "Wrangler local",
+    "Path": "/kr/",
+    "Method": "Get",
+    "Status": 200,
+    "ContentType": "text/html; charset=utf-8"
+  },
+  {
+    "Environment": "Wrangler local",
+    "Path": "/kr/",
+    "Method": "Head",
+    "Status": 200,
+    "ContentType": "text/html; charset=utf-8"
+  },
+  {
+    "Environment": "Wrangler local",
+    "Path": "/us/",
+    "Method": "Get",
+    "Status": 200,
+    "ContentType": "text/html; charset=utf-8"
+  },
+  {
+    "Environment": "Wrangler local",
+    "Path": "/us/",
+    "Method": "Head",
+    "Status": 200,
+    "ContentType": "text/html; charset=utf-8"
+  },
+  {
+    "Environment": "Wrangler local",
+    "Path": "/percent/",
+    "Method": "Get",
+    "Status": 200,
+    "ContentType": "text/html; charset=utf-8"
+  },
+  {
+    "Environment": "Wrangler local",
+    "Path": "/percent/",
+    "Method": "Head",
+    "Status": 200,
+    "ContentType": "text/html; charset=utf-8"
+  },
+  {
+    "Environment": "Wrangler local",
+    "Path": "/percent/us/",
+    "Method": "Get",
+    "Status": 200,
+    "ContentType": "text/html; charset=utf-8"
+  },
+  {
+    "Environment": "Wrangler local",
+    "Path": "/percent/us/",
+    "Method": "Head",
+    "Status": 200,
+    "ContentType": "text/html; charset=utf-8"
+  },
+  {
+    "Environment": "Wrangler local",
+    "Path": "/missing-sitemap.xml",
+    "Method": "Get",
+    "Status": 404,
+    "ContentType": ""
+  },
+  {
+    "Environment": "Wrangler local",
+    "Path": "/missing-sitemap.xml",
+    "Method": "Head",
+    "Status": 404,
+    "ContentType": ""
+  },
+  {
+    "Environment": "Production (Googlebot User-Agent)",
+    "Path": "/sitemap.xml",
+    "Method": "Get",
+    "Status": 200,
+    "ContentType": "application/xml"
+  },
+  {
+    "Environment": "Production (Googlebot User-Agent)",
+    "Path": "/",
+    "Method": "Get",
+    "Status": 200,
+    "ContentType": "text/html"
+  },
+  {
+    "Environment": "Production (Googlebot User-Agent)",
+    "Path": "/us/",
+    "Method": "Get",
+    "Status": 200,
+    "ContentType": "text/html"
+  },
+  {
+    "Environment": "Production (Googlebot User-Agent)",
+    "Path": "/percent/",
+    "Method": "Get",
+    "Status": 200,
+    "ContentType": "text/html"
+  },
+  {
+    "Environment": "Production (Googlebot User-Agent)",
+    "Path": "/percent/us/",
+    "Method": "Get",
+    "Status": 200,
+    "ContentType": "text/html"
+  },
+  {
+    "Environment": "Production (Googlebot User-Agent)",
+    "Path": "/robots.txt",
+    "Method": "Get",
+    "Status": 200,
+    "ContentType": "text/plain; charset=utf-8"
+  },
+  {
+    "Environment": "Production (Googlebot User-Agent)",
+    "Path": "/sitemap.xml",
+    "Method": "Head",
+    "Status": 200,
+    "ContentType": "application/xml"
+  },
+  {
+    "Environment": "Production (Googlebot User-Agent)",
+    "Path": "/robots.txt",
+    "Method": "Head",
+    "Status": 200,
+    "ContentType": "text/plain; charset=utf-8"
+  }
+]
