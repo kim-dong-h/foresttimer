@@ -28,6 +28,13 @@ svg { flex-shrink: 0; }
 .app-shell { position: relative; z-index: 1; max-width: 1104px; min-height: 100dvh; margin: 0 auto; padding: 0 44px; display: flex; flex-direction: column; }
 main { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 34px 0 0; }
 .intro { position: relative; width: 100%; max-width: 960px; text-align: center; }
+.language-switcher { position: absolute; left: 0; top: 50%; transform: translateY(-50%); display: inline-flex; align-items: center; gap: 6px; font-size: 10px; white-space: nowrap; }
+.language-switcher a { display: inline-flex; align-items: center; min-height: 34px; padding: 4px 2px; color: #b5c4a6; text-decoration: none; }
+.language-switcher a[aria-current='page'] { color: #efd18d; text-decoration: underline; text-underline-offset: 4px; }
+.language-switcher a:hover { color: #f4edd6; }
+.language-switcher a[aria-disabled='true'] { opacity: .5; cursor: default; }
+.language-divider { color: #7e967b; }
+.language-code { display: none; }
 .sound-toggle { position: absolute; right: 0; top: 50%; transform: translateY(-50%); display: inline-flex; align-items: center; gap: 6px; min-height: 34px; padding: 7px 9px; border: 2px solid #668068; background: #2b4438; color: #e0e4c5; box-shadow: inset 1px 1px #46614b, 2px 2px 0 #172e25; font-size: 10px; white-space: nowrap; }
 .sound-toggle:hover { background: #375440; }
 .sound-toggle-track { width: 23px; height: 12px; border: 1px solid #879977; background: #405746; }
@@ -263,7 +270,11 @@ footer > span:last-child { display: flex; align-items: center; gap: 10px; font-s
   .timer-message { font-size: 8px; }
 }
 @media (max-width: 680px) {
-  .intro { display: flex; align-items: center; justify-content: space-between; gap: 8px; text-align: left; }
+  .intro { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 8px; text-align: left; }
+  .language-switcher { position: static; transform: none; font-size: 9px; gap: 4px; }
+  .language-name { display: none; }
+  .language-code { display: inline; }
+  .intro h1 { text-align: center; }
   .intro h1 { font-size: clamp(24px, 7.5vw, 33px); }
   .sound-toggle { position: static; transform: none; flex-shrink: 0; padding: 6px 7px; gap: 4px; font-size: 9px; }
   .app-shell { padding: 0 22px; }
@@ -301,6 +312,7 @@ footer > span:last-child { display: flex; align-items: center; gap: 10px; font-s
   footer > span:last-child { font-size: 7px; }
 }
 @media (max-width: 360px) {
+  .intro h1 { font-size: 20px; }
   .app-shell { padding: 0 17px; }
   .card-top { padding: 0 10px; gap: 8px; }
   .card-top > span:first-child { font-size: 9px; gap: 5px; }

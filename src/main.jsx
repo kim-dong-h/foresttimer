@@ -19,6 +19,7 @@ import { SoundController } from './sounds.js';
 import { formatPreset, languageFromPath, publicAssetPath, t } from './i18n.js';
 import './styles.css';
 import PageGuide from './PageGuide.jsx';
+import LanguageSwitcher from './LanguageSwitcher.jsx';
 
 function Icon({ name, size = 20, ...props }) {
   const pixels = {
@@ -267,6 +268,7 @@ export function App({ language = languageFromPath(), pathname = globalThis.locat
       <div className="app-shell">
       <main>
         <div className="intro">
+          <LanguageSwitcher language={language} pathname={pathname} timerActive={status === 'running' || status === 'paused'} />
           <h1>forestTimer</h1>
           <button type="button" className="sound-toggle" role="switch" aria-label={t(language, 'sound')} aria-checked={soundEnabled} title={t(language, soundEnabled ? 'soundDisable' : 'soundEnable')} onClick={toggleSound}>
             <Icon name={soundEnabled ? 'soundOn' : 'soundOff'} size={14} />
