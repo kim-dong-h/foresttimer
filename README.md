@@ -97,6 +97,16 @@ pnpm test
 
 새 페이지를 추가하거나 운영 도메인을 변경할 때 사이트맵과 robots.txt의 주소도 수정하세요.
 
+### Google Analytics 4
+
+측정 ID `G-G2B2YQK02K`의 Google 태그를 모든 HTML 진입점(`/`, `/kr/`, `/us/`, `/percent/`, `/percent/us/`)의 `<head>`에 한 번씩 포함합니다. 빌드·배포 후 Google Analytics의 웹 데이터 스트림에서 측정 ID와 운영 주소 `https://forest-timer.com`을 확인하고, 사이트에 방문한 뒤 **보고서 → 실시간** 또는 Tag Assistant로 수집 여부를 확인하세요. 기본 태그는 페이지 조회를 수집하며, 타이머 시작·완료 등의 사용자 정의 이벤트는 추가하지 않았습니다.
+
+### Google AdSense
+
+게시자 ID `ca-pub-1870687282628124`의 AdSense 스크립트를 모든 HTML 진입점의 `<head>`에 한 번씩 포함합니다. `public/ads.txt`에는 해당 게시자 ID의 Google DIRECT 항목을 지정하며, 빌드 시 `dist/ads.txt`로 복사되고 Cloudflare Static Assets에서 `text/plain; charset=utf-8`로 제공합니다.
+
+GitHub에 변경 파일을 푸시하고 Cloudflare 재배포 후 `https://forest-timer.com/ads.txt`에서 게시자 ID를 확인하세요. AdSense의 **사이트**에서 `forest-timer.com`의 코드 설치 확인 및 검토 요청을 진행합니다. 사이트 승인 상태와 광고 표시 방식은 AdSense 계정에서 설정합니다.
+
 ### Cloudflare Workers Static Assets
 
 `wrangler.jsonc`에서 Worker 이름 `foresttimer`, 호환성 날짜 `2026-10-06`, 배포 폴더 `./dist`를 지정합니다. 각 공개 페이지는 별도의 HTML 파일을 가지므로 `assets.not_found_handling`은 `none`으로 설정합니다. 존재하지 않는 파일을 타이머 HTML로 대신 응답하는 SPA fallback을 사용하지 않습니다. `public/_headers`는 사이트맵에 `application/xml; charset=utf-8`, robots.txt에 `text/plain; charset=utf-8`를 적용하며, 빌드 결과물에 함께 복사됩니다.
