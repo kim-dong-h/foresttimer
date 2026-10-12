@@ -89,6 +89,14 @@ pnpm test
 
 `pnpm build`로 생성된 `dist/` 전체를 HTTPS 정적 호스팅에 업로드하면 됩니다. Node 서버나 백엔드는 필요 없습니다. `sw.js`와 `notification-icon.svg`도 함께 업로드하세요. 상대 경로를 사용하므로 하위 폴더 배포도 지원합니다.
 
+### Google Search Console
+
+운영 도메인은 `https://forest-timer.com`입니다. `public/sitemap.xml`과 `public/robots.txt`는 빌드 시 `dist/` 루트에 복사됩니다. 사이트맵에는 한국어 타이머 `/`, 영어 타이머 `/us/`, 한국어 계산기 `/percent/`, 영어 계산기 `/percent/us/`를 포함합니다. `/kr/`는 `/`와 같은 한국어 타이머이므로 중복 주소로 포함하지 않습니다.
+
+배포 후 `https://forest-timer.com/sitemap.xml`에서 XML이 표시되는지 확인하고, 소유권을 인증한 Google Search Console 속성의 **Sitemaps** 메뉴에 해당 전체 주소를 제출하세요. URL 접두어가 이미 표시되는 입력란에는 `sitemap.xml`만 입력합니다. 사이트맵 제출은 검색엔진의 페이지 발견을 돕지만 색인을 보장하지는 않습니다.
+
+새 페이지를 추가하거나 운영 도메인을 변경할 때 사이트맵과 robots.txt의 주소도 수정하세요.
+
 ## 앱으로 설치
 
 `manifest.webmanifest`와 192·512px PNG 앱 아이콘을 포함합니다. Chrome 또는 Edge에서 설치하면 forestTimer 아이콘으로 실행할 수 있으며, 브라우저 탭 대신 별도 앱 창으로 열립니다. `dist/`의 매니페스트와 `icons/` 폴더도 함께 배포하세요.
