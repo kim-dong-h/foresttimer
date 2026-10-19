@@ -2,7 +2,8 @@ import { formatWon, formatDollars } from './percent.js';
 
 const copy = {
   ko: {
-    title: '퍼센트 계산기', back: '타이머로 돌아가기', intro: '기준금액에 퍼센트를 더하거나 빼세요.', live: '실시간 계산',
+    introDescription: '7% 분할 매수 시뮬레이터 계산기',
+    title: '퍼센트 계산기', back: '온라인 타이머로 돌아가기', intro: '기준금액에 퍼센트를 더하거나 빼세요.', live: '실시간 계산',
     base: '기준금액', percent: '퍼센트', total: '합계 금액', baseExample: '예: 5000', percentExample: '예: 10 또는 -10',
     percentHelp: '양수는 추가, 음수는 차감해요. 소수도 입력할 수 있으며, 표시 금액의 소수점 이하는 버려요.',
     inputError: '{field}에 숫자를 입력해 주세요. 예: 5000, 10, -10', adjustment: '증감액',
@@ -25,6 +26,7 @@ const copy = {
     loaded: '“{title}” 설정을 불러왔어요.', saved: '“{title}” 저장했어요.',
   },
   en: {
+    introDescription: '7% averaging down simulator calculator',
     title: 'Percent Calculator', back: 'Back to timer', intro: 'Add or subtract a percentage from a base amount.', live: 'Live calculation',
     base: 'Base amount (USD)', percent: 'Percent', total: 'Total amount (USD)', baseExample: 'e.g. 5000', percentExample: 'e.g. 10 or -10',
     percentHelp: 'Positive percentages add; negative percentages subtract. Amounts are in US dollars and are displayed to the nearest cent.',

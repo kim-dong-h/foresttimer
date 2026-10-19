@@ -28,6 +28,9 @@ svg { flex-shrink: 0; }
 .app-shell { position: relative; z-index: 1; max-width: 1104px; min-height: 100dvh; margin: 0 auto; padding: 0 44px; display: flex; flex-direction: column; }
 main { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 34px 0 0; }
 .intro { position: relative; width: 100%; max-width: 960px; text-align: center; }
+.brand-wordmark { font-size: 44px; font-weight: 400; line-height: 1.5; margin: 0 0 4px; letter-spacing: -2px; }
+.timer-heading { margin: 14px 0 0; font-size: 22px; font-weight: 400; line-height: 1.5; letter-spacing: -.5px; text-align: center; }
+.timer-description { width: 100%; max-width: 960px; margin: 8px 0 0; color: #c1c9ad; font-size: 12px; line-height: 1.8; text-align: center; word-break: keep-all; overflow-wrap: anywhere; }
 .language-switcher { position: absolute; left: 0; top: 50%; transform: translateY(-50%); display: inline-flex; align-items: center; gap: 6px; font-size: 10px; white-space: nowrap; }
 .language-switcher a { display: inline-flex; align-items: center; min-height: 34px; padding: 4px 2px; color: #b5c4a6; text-decoration: none; }
 .language-switcher a[aria-current='page'] { color: #efd18d; text-decoration: underline; text-underline-offset: 4px; }
@@ -274,8 +277,8 @@ footer > span:last-child { display: flex; align-items: center; gap: 10px; font-s
   .language-switcher { position: static; transform: none; font-size: 9px; gap: 4px; }
   .language-name { display: none; }
   .language-code { display: inline; }
-  .intro h1 { text-align: center; }
-  .intro h1 { font-size: clamp(24px, 7.5vw, 33px); }
+  .intro .brand-wordmark { text-align: center; font-size: clamp(24px, 7.5vw, 33px); letter-spacing: -1px; }
+  .timer-heading { margin-top: 12px; font-size: 20px; }
   .sound-toggle { position: static; transform: none; flex-shrink: 0; padding: 6px 7px; gap: 4px; font-size: 9px; }
   .app-shell { padding: 0 22px; }
   main { padding-top: 29px; }
@@ -312,7 +315,7 @@ footer > span:last-child { display: flex; align-items: center; gap: 10px; font-s
   footer > span:last-child { font-size: 7px; }
 }
 @media (max-width: 360px) {
-  .intro h1 { font-size: 20px; }
+  .intro .brand-wordmark { font-size: 16px; }
   .app-shell { padding: 0 17px; }
   .card-top { padding: 0 10px; gap: 8px; }
   .card-top > span:first-child { font-size: 9px; gap: 5px; }

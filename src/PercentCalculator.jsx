@@ -33,6 +33,7 @@ export default function PercentCalculator({ language = 'ko' }) {
           <a className="percent-back" href={timerHref}>← {pt(language, 'back')}</a>
           <p className="percent-eyebrow">FOREST TOOLS</p>
           <h1>{pt(language, 'title')}</h1>
+          <p className="percent-tagline">{pt(language, 'introDescription')}</p>
           <p>{pt(language, 'intro')}</p>
         </header>
 

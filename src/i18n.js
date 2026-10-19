@@ -19,7 +19,9 @@ export function publicAssetPath(filename, pathname = globalThis.location?.pathna
 const copy = {
   ko: {
     languageSelection: '언어 선택', languageTimerActive: '타이머를 완료하거나 초기화한 후 언어를 변경할 수 있어요.',
-    pageTitle: '온라인 집중 타이머 · 숲을 키우는 forestTimer',
+    pageTitle: '온라인 타이머 – 분·초 설정과 완료 알림 | forestTimer',
+    heading: '온라인 타이머',
+    introDescription: '공부하는 동안 숲과 정령이 자라는 온라인 타이머',
     percentCalculatorLink: '퍼센트 계산기로 가기',
     browserStorageNotice: '저장 내용은 현재 브라우저 저장소에만 보관됩니다. 브라우저 데이터를 삭제하면 사라지며, 다른 기기·브라우저와 공유되지 않으니 유의해 주세요.',
     'sprout-spirit': '새싹 정령', 'mushroom-sprite': '버섯 요정', 'moss-stone-spirit': '이끼 돌 정령',
@@ -51,6 +53,8 @@ const copy = {
   en: {
     languageSelection: 'Language selection', languageTimerActive: 'Finish or reset the timer before changing language.',
     pageTitle: 'Online Focus Timer | forestTimer',
+    heading: 'Online Focus Timer',
+    introDescription: 'An online timer that grows your forest and spirit while you study',
     percentCalculatorLink: 'Percent calculator',
     browserStorageNotice: 'Saved data is kept only in this browser’s storage. Clearing browser data removes it, and it is not shared across devices or browsers.',
     'sprout-spirit': 'Sprout Spirit', 'mushroom-sprite': 'Mushroom Fairy', 'moss-stone-spirit': 'Moss Stone Spirit',

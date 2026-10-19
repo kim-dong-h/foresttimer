@@ -269,7 +269,7 @@ export function App({ language = languageFromPath(), pathname = globalThis.locat
       <main>
         <div className="intro">
           <LanguageSwitcher language={language} pathname={pathname} timerActive={status === 'running' || status === 'paused'} />
-          <h1>forestTimer</h1>
+          <p className="brand-wordmark">forestTimer</p>
           <button type="button" className="sound-toggle" role="switch" aria-label={t(language, 'sound')} aria-checked={soundEnabled} title={t(language, soundEnabled ? 'soundDisable' : 'soundEnable')} onClick={toggleSound}>
             <Icon name={soundEnabled ? 'soundOn' : 'soundOff'} size={14} />
             <span>{t(language, 'sound')}</span>
@@ -277,6 +277,9 @@ export function App({ language = languageFromPath(), pathname = globalThis.locat
             <span className="sound-toggle-state" aria-hidden="true">{soundEnabled ? 'ON' : 'OFF'}</span>
           </button>
         </div>
+
+        <h1 className="timer-heading">{t(language, 'heading')}</h1>
+        <p className="timer-description">{t(language, 'introDescription')}</p>
 
         <section className={`timer-card is-${status}`} aria-label="forestTimer">
           <div className="card-top">
