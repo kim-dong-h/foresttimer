@@ -28,8 +28,8 @@
     <link rel="alternate" hreflang="en" href="https://forest-timer.com/us/" />
     <link rel="alternate" hreflang="x-default" href="https://forest-timer.com/" />
     <script>
-      // Normalize nested calculator URLs before relative module assets load.
-      if (/\/percent(?:\/us)?$/.test(window.location.pathname)) {
+      // Normalize tool URLs before relative module assets load.
+      if (/\/(?:percent(?:\/us)?|cooking)$/.test(window.location.pathname)) {
         window.location.replace(`${window.location.pathname}/${window.location.search}${window.location.hash}`);
       }
     </script>

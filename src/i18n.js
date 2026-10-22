@@ -13,7 +13,7 @@ function localeSegment(pathname) {
 }
 
 export function publicAssetPath(filename, pathname = globalThis.location?.pathname ?? '/') {
-  return `${isLocaleRoute(pathname) ? '../' : './'}${filename}`;
+  return `${isLocaleRoute(pathname) || localeSegment(pathname) === 'cooking' ? '../' : './'}${filename}`;
 }
 
 const copy = {
@@ -23,6 +23,7 @@ const copy = {
     heading: '온라인 타이머',
     introDescription: '공부하는 동안 숲과 정령이 자라는 온라인 타이머',
     percentCalculatorLink: '퍼센트 계산기로 가기',
+    cookingTimerLink: '요리 타이머',
     browserStorageNotice: '저장 내용은 현재 브라우저 저장소에만 보관됩니다. 브라우저 데이터를 삭제하면 사라지며, 다른 기기·브라우저와 공유되지 않으니 유의해 주세요.',
     'sprout-spirit': '새싹 정령', 'mushroom-sprite': '버섯 요정', 'moss-stone-spirit': '이끼 돌 정령',
     spiritCompanion: '나의 숲 정령', spiritScene: '{timeOfDay} 숲속 빈터에 있는 {name}',
@@ -56,6 +57,7 @@ const copy = {
     heading: 'Online Focus Timer',
     introDescription: 'An online timer that grows your forest and spirit while you study',
     percentCalculatorLink: 'Percent calculator',
+    cookingTimerLink: 'Cooking timer (한국어)',
     browserStorageNotice: 'Saved data is kept only in this browser’s storage. Clearing browser data removes it, and it is not shared across devices or browsers.',
     'sprout-spirit': 'Sprout Spirit', 'mushroom-sprite': 'Mushroom Fairy', 'moss-stone-spirit': 'Moss Stone Spirit',
     spiritCompanion: 'MY FOREST SPIRIT', spiritScene: '{name} in a forest clearing {timeOfDay}',

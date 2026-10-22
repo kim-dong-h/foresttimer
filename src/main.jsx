@@ -354,7 +354,7 @@ export function App({ language = languageFromPath(), pathname = globalThis.locat
       </main>
 
       <BrowserStorageNotice language={language} />
-      <footer><span>FORESTTIMER © 2026 <span className="footer-divider">/</span> {t(language, 'footer')}</span><a className="footer-calculator-link" href={publicAssetPath(language === 'en' ? 'percent/us/' : 'percent/', pathname)}>{t(language, 'percentCalculatorLink')} <span aria-hidden="true">→</span></a></footer>
+      <footer><span>FORESTTIMER © 2026 <span className="footer-divider">/</span> {t(language, 'footer')}</span><nav className="footer-tool-links" aria-label={language === 'en' ? 'More tools' : '다른 도구'}><a className="footer-calculator-link" href={publicAssetPath('cooking/', pathname)}>{t(language, 'cookingTimerLink')} <span aria-hidden="true">→</span></a><a className="footer-calculator-link" href={publicAssetPath(language === 'en' ? 'percent/us/' : 'percent/', pathname)}>{t(language, 'percentCalculatorLink')} <span aria-hidden="true">→</span></a></nav></footer>
       </div>
       {spiritResetOpen && <SpiritResetDialog language={language} onCancel={() => setSpiritResetOpen(false)} onConfirm={confirmSpiritReset} />}
       <PageGuide language={language} kind="timer" />
@@ -363,9 +363,9 @@ export function App({ language = languageFromPath(), pathname = globalThis.locat
 }
 
 // Directory URLs without a trailing slash can reach the static HTML fallback.
-// Normalize before mounting the timer so /percent opens its own entry page.
+// Normalize before mounting so tool URLs open their own entry pages.
 if (typeof window !== 'undefined') {
-  if (/\/percent(?:\/us)?$/.test(window.location.pathname)) {
+  if (/\/(?:percent(?:\/us)?|cooking)$/.test(window.location.pathname)) {
     window.location.replace(`${window.location.pathname}/${window.location.search}${window.location.hash}`);
   } else {
     createRoot(document.getElementById('root')).render(<App />);

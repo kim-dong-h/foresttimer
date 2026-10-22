@@ -12,6 +12,7 @@ const pages = [
   ['us/index.html', 'timer', 'en'],
   ['percent/index.html', 'calculator', 'ko'],
   ['percent/us/index.html', 'calculator', 'en'],
+  ['cooking/index.html', 'cooking', 'ko'],
 ];
 
 // SSR transforms the same React components without launching a browser or server.

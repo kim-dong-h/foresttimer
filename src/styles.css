@@ -232,6 +232,7 @@ h1 { font-size: 44px; font-weight: 400; line-height: 1.5; margin: 0 0 4px; lette
 .gentle-note p { margin: 0; }
 .note-spark { margin-left: 4px; color: #acb385; }
 .browser-storage-notice { margin: 24px 0; color: #b2bea2; font-size: 11px; line-height: 1.9; text-align: center; overflow-wrap: anywhere; }
+.footer-tool-links { display: flex; align-items: center; justify-content: flex-end; gap: 16px; flex-wrap: wrap; }
 footer { display: flex; align-items: center; justify-content: space-between; min-height: 66px; color: #7f967d; font-size: 9px; border-top: 2px solid #354d3e; gap: 15px; }
 footer > span:last-child { display: flex; align-items: center; gap: 10px; font-size: 8px; letter-spacing: .8px; }
 .footer-divider { color: #48634c; margin: 0 8px; }

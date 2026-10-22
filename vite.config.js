@@ -13,6 +13,7 @@ export default defineConfig({
         kr: fileURLToPath(new URL('./kr/index.html', import.meta.url)),
         percent: fileURLToPath(new URL('./percent/index.html', import.meta.url)),
         percentUs: fileURLToPath(new URL('./percent/us/index.html', import.meta.url)),
+        cooking: fileURLToPath(new URL('./cooking/index.html', import.meta.url)),
       },
     },
   },

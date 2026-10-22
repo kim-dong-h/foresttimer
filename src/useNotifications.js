@@ -115,6 +115,6 @@ export function useNotifications(language, soundEnabled = true) {
   return {
     enabled, busy, help, message, toggle, test,
     available: service.availability === 'supported',
-    notifyCompletion: () => notify(t(language, 'completionTitle'), t(language, 'completionBody'), 'tempo-complete'),
+    notifyCompletion: (details = {}) => notify(details.title ?? t(language, 'completionTitle'), details.body ?? t(language, 'completionBody'), details.tag ?? 'tempo-complete'),
   };
 }
