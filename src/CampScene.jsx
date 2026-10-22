@@ -1,5 +1,6 @@
-import React, { useId } from 'react';
-import forestBackground from './assets/spirit-forest-background.webp';
+import React, { memo, useId } from 'react';
+import forestBackground from './assets/optimized/forest-desktop.webp';
+import forestBackgroundMobile from './assets/optimized/forest-mobile.webp';
 import rainDropSprite from './assets/rain-drop-sprite.webp';
 import rainDropGeometry from './assets/rain-drop-sprite.json';
 import { t } from './i18n.js';
@@ -55,11 +56,18 @@ function FallingRainDrops() {
   );
 }
 
-export default function CampScene({ status, rainActive, language, spiritImage, spiritName, spiritStage, plants = [], focusMode = false }) {
+const EMPTY_PLANTS = [];
+
+function CampScene({ status, rainActive, language, spiritImage, spiritName, spiritStage, plants = EMPTY_PLANTS, focusMode = false }) {
   const lightingId = useId();
   const sunlightId = `forest-focus-sunlight-${lightingId}`;
   const timeOfDay = t(language, 'day');
   return (
+    <div className={`camp-scene-wrapper${focusMode ? ' is-focus-mode' : ''}`}>
+    <picture className="camp-forest-background" aria-hidden="true">
+      <source media="(max-width: 680px)" srcSet={forestBackgroundMobile} />
+      <img src={forestBackground} width="1536" height="1024" alt="" fetchPriority="high" decoding="async" />
+    </picture>
     <svg
       className={`camp-scene scene-${status}${focusMode ? ' is-focus-mode' : ''}`}
       viewBox="0 0 1536 1024"
@@ -75,7 +83,6 @@ export default function CampScene({ status, rainActive, language, spiritImage, s
           <stop offset="100%" stopColor="#ffe6a2" stopOpacity="0" />
         </radialGradient>
       </defs>
-      <image className="camp-forest-background" href={forestBackground} width="1536" height="1024" />
       <g className={`camp-focus-lighting${focusMode ? ' is-active' : ''}`} pointerEvents="none" aria-hidden="true">
         <rect width="1536" height="1024" fill={`url(#${sunlightId})`} />
       </g>
@@ -84,5 +91,8 @@ export default function CampScene({ status, rainActive, language, spiritImage, s
       <ForestPlants plants={plants} foreground />
       {rainActive && <FallingRainDrops />}
     </svg>
+    </div>
   );
 }
+
+export default memo(CampScene);

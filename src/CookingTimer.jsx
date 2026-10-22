@@ -3,6 +3,8 @@ import { formatTime } from './timer.js';
 import { formatPreset } from './i18n.js';
 import { SoundController } from './sounds.js';
 import { useNotifications } from './useNotifications.js';
+import { SiteLinks, SiteNavigation } from './SiteNavigation.jsx';
+import { siteHref } from './siteRoutes.js';
 import { COOKING_PRESETS, COOKING_STORAGE_KEY, MAX_COOKING_TIMERS, MAX_COOKING_DURATION,
   cookingDuration, cookingRemaining, cookingReducer, createCookingTimer, initialCookingTimers, loadCookingTimers } from './cooking.js';
 
@@ -133,9 +135,9 @@ export default function CookingTimer() {
   }
 
   return <div className="cooking-shell">
+    <SiteNavigation current="cooking" pathname="/cooking/" />
     <header className="cooking-header">
       <a className="cooking-brand" href="../">forestTimer<span>숲속 작은 주방</span></a>
-      <nav aria-label="타이머 메뉴"><a href="../">일반·집중 타이머 <span aria-hidden="true">↗</span></a><a href="./" aria-current="page">요리 타이머</a></nav>
     </header>
     <main className="cooking-main">
       <section className="cooking-hero" aria-labelledby="cooking-title">
@@ -202,7 +204,9 @@ export default function CookingTimer() {
         <details><summary>시간이 끝나면 어떻게 알려주나요?</summary><p>완료된 카드의 색이 바뀌고 알림음이 울려요. 반복을 켜면 5초마다 소리가 나며 ‘완료 확인 · 알림 끄기’를 누르면 멈춥니다. 브라우저 알림은 권한을 허용한 경우 요리 이름과 함께 표시됩니다.</p><p>타이머 탭을 열어 두세요. 탭을 닫거나 기기가 잠들면 알림이 울리지 않거나 늦어질 수 있어요.</p></details>
         <details><summary>새로고침해도 시간이 유지되나요?</summary><p>타이머는 현재 브라우저에 저장됩니다. 새로고침하면 종료 시각을 기준으로 남은 시간을 다시 계산해요. 닫혀 있는 동안 완료된 타이머는 페이지를 다시 열 때 확인할 수 있습니다. 브라우저 데이터를 지우면 저장 내용도 사라집니다.</p></details>
       </div><noscript><p>타이머를 실행하려면 JavaScript를 켜 주세요.</p></noscript></section>
+      <section className="cooking-guide-detail"><h2>다른 요리의 종료 시각을 맞추고 싶나요?</h2><p>10분 파스타와 6분 소스를 함께 준비하는 예제로 카드별 시작, +1분, 완료 확인과 저장 복원을 확인해 보세요.</p><a href={siteHref('cookingGuide', 'ko', '/cooking/')}>요리 타이머 상세 가이드 읽기 →</a></section>
     </main>
     <footer className="cooking-footer"><span>FORESTTIMER © 2026 · 맛있는 기다림</span><a href="../">숲속 집중 타이머로 가기 →</a></footer>
+    <SiteLinks pathname="/cooking/" />
   </div>;
 }

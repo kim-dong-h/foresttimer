@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { memo } from 'react';
+import { siteHref } from './siteRoutes.js';
 
 const guides = {
   timer: {
@@ -51,11 +52,15 @@ const guides = {
   },
 };
 
-export default function PageGuide({ kind, language }) {
+function PageGuide({ kind, language, pathname }) {
   const guide = guides[kind][language];
   return <section className="page-guide" aria-labelledby="page-guide-title">
     <h2 id="page-guide-title">{guide.title}</h2>
     <p>{guide.intro}</p>
+    <div className="guide-inline-examples"><h3>{language === 'en' ? 'A practical starting point' : '이렇게 활용해 보세요'}</h3><p>{kind === 'timer'
+      ? language === 'en' ? 'Read for 20 minutes, then start a separate 5-minute session to write a three-line summary. Focus mode lets you review returns to the timer; it does not score your concentration.' : '20분 동안 읽고, 이어서 5분을 따로 설정해 핵심 내용을 3줄로 정리해 보세요. 집중 모드의 돌아온 기록으로 작업 전환을 돌아볼 수 있습니다. 기록은 집중력 점수가 아닙니다.'
+      : language === 'en' ? 'A $100 purchase at $100 and a $200 purchase at $50 buy five shares in total. The average cost is $60, not the simple price average of $75. See the full worked example in the guide.' : '100원에 100만원, 50원에 200만원을 매수하면 총 50,000주입니다. 평단가는 300만원 ÷ 50,000주 = 60원으로, 가격의 단순 평균인 75원과 다릅니다.'}</p></div>
+    <a className="guide-detail-link" href={siteHref(kind === 'timer' ? 'focusGuide' : 'percentGuide', language, pathname)}>{language === 'en' ? 'Read examples, calculations and limitations' : '예제·계산 과정·주의할 점 자세히 읽기'} →</a>
     <details>
       <summary>{guide.stepsTitle}</summary>
       <ol>{guide.steps.map(step => <li key={step}>{step}</li>)}</ol>
@@ -67,3 +72,5 @@ export default function PageGuide({ kind, language }) {
     <noscript><p>{guide.noScript}</p></noscript>
   </section>;
 }
+
+export default memo(PageGuide);

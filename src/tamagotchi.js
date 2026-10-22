@@ -127,11 +127,15 @@ export class SpiritTracker {
       }
       return;
     }
+    const currentPlants = this.profile.forestPlants;
+    const latestPlants = latest.forestPlants;
+    const samePlants = latestPlants.length === currentPlants.length && latestPlants.every((plant, index) =>
+      plant.slot === currentPlants[index].slot && plant.kind === currentPlants[index].kind);
     this.profile = latest.species === this.profile.species ? {
       ...latest,
       totalMilliseconds: Math.max(latest.totalMilliseconds, this.profile.totalMilliseconds),
       lastCreditedAt: Math.max(latest.lastCreditedAt, this.profile.lastCreditedAt),
-      forestPlants: latest.forestPlants.length >= this.profile.forestPlants.length ? latest.forestPlants : this.profile.forestPlants,
+      forestPlants: samePlants || latestPlants.length < currentPlants.length ? currentPlants : latestPlants,
     } : latest;
   }
 }

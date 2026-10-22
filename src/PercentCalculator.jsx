@@ -5,6 +5,7 @@ import BrowserStorageNotice from './BrowserStorageNotice.jsx';
 import { pt, percentTimerHref } from './percentI18n.js';
 import './percent.css';
 import PageGuide from './PageGuide.jsx';
+import { SiteLinks, SiteNavigation } from './SiteNavigation.jsx';
 
 export default function PercentCalculator({ language = 'ko' }) {
   const [base, setBase] = useState('5000');
@@ -28,6 +29,7 @@ export default function PercentCalculator({ language = 'ko' }) {
   return (
     <>
     <div className="app-shell percent-shell">
+      <SiteNavigation language={language} current="calculator" pathname={language === 'en' ? '/percent/us/' : '/percent/'} />
       <main className="percent-main">
         <header className="percent-intro">
           <a className="percent-back" href={timerHref}>← {pt(language, 'back')}</a>
@@ -64,10 +66,11 @@ export default function PercentCalculator({ language = 'ko' }) {
         </section>
         <AveragingSimulator language={language} />
       </main>
+      <PageGuide language={language} kind="calculator" pathname={language === 'en' ? '/percent/us/' : '/percent/'} />
       <BrowserStorageNotice language={language} />
       <footer><span>FORESTTIMER © 2026</span><span>{pt(language, 'footer')}</span></footer>
+      <SiteLinks language={language} pathname={language === 'en' ? '/percent/us/' : '/percent/'} />
     </div>
-    <PageGuide language={language} kind="calculator" />
     </>
   );
 }

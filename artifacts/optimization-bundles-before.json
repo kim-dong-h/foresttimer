@@ -1,0 +1,46 @@
+[
+  {
+    "page": "index.html",
+    "js": {
+      "bytes": 301351,
+      "gzipBytes": 98424
+    },
+    "css": {
+      "bytes": 29125,
+      "gzipBytes": 7306
+    }
+  },
+  {
+    "page": "percent/index.html",
+    "js": {
+      "bytes": 270479,
+      "gzipBytes": 88102
+    },
+    "css": {
+      "bytes": 36728,
+      "gzipBytes": 9414
+    }
+  },
+  {
+    "page": "guides/index.html",
+    "js": {
+      "bytes": 268696,
+      "gzipBytes": 86881
+    },
+    "css": {
+      "bytes": 29125,
+      "gzipBytes": 7306
+    }
+  },
+  {
+    "page": "cooking/index.html",
+    "js": {
+      "bytes": 268009,
+      "gzipBytes": 87068
+    },
+    "css": {
+      "bytes": 41135,
+      "gzipBytes": 10484
+    }
+  }
+]

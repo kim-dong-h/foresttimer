@@ -29,7 +29,7 @@
     <link rel="alternate" hreflang="x-default" href="https://forest-timer.com/" />
     <script>
       // Normalize tool URLs before relative module assets load.
-      if (/\/(?:percent(?:\/us)?|cooking)$/.test(window.location.pathname)) {
+      if (/\/(?:percent(?:\/us)?|cooking|(?:about|contact|privacy|guides(?:\/(?:focus-timer|percent-calculator|cooking-timer))?)(?:\/us)?)$/.test(window.location.pathname)) {
         window.location.replace(`${window.location.pathname}/${window.location.search}${window.location.hash}`);
       }
     </script>

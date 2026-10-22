@@ -20,6 +20,7 @@ import { formatPreset, languageFromPath, publicAssetPath, t } from './i18n.js';
 import './styles.css';
 import PageGuide from './PageGuide.jsx';
 import LanguageSwitcher from './LanguageSwitcher.jsx';
+import { SiteLinks, SiteNavigation } from './SiteNavigation.jsx';
 
 function Icon({ name, size = 20, ...props }) {
   const pixels = {
@@ -136,7 +137,8 @@ export function App({ language = languageFromPath(), pathname = globalThis.locat
       const now = Date.now();
       tamagotchi.tick(now);
       const next = remainingAt(deadline.current, now);
-      setRemaining(next);
+      // Keep deadline checks precise without redrawing the UI ten times per second.
+      setRemaining(previous => Math.ceil(previous / 1000) === Math.ceil(next / 1000) ? previous : next);
       if (next === 0) {
         clearInterval(interval);
         finishTimer();
@@ -266,6 +268,7 @@ export function App({ language = languageFromPath(), pathname = globalThis.locat
   return (
     <>
       <div className="app-shell">
+      <SiteNavigation language={language} current="timer" pathname={pathname} />
       <main>
         <div className="intro">
           <LanguageSwitcher language={language} pathname={pathname} timerActive={status === 'running' || status === 'paused'} />
@@ -353,11 +356,12 @@ export function App({ language = languageFromPath(), pathname = globalThis.locat
         <div className="gentle-note"><span className="tip-label">TIP!</span><p>{t(language, 'tip')}</p><span className="note-spark" aria-hidden="true">✦</span></div>
       </main>
 
+      <PageGuide language={language} kind="timer" pathname={pathname} />
       <BrowserStorageNotice language={language} />
       <footer><span>FORESTTIMER © 2026 <span className="footer-divider">/</span> {t(language, 'footer')}</span><nav className="footer-tool-links" aria-label={language === 'en' ? 'More tools' : '다른 도구'}><a className="footer-calculator-link" href={publicAssetPath('cooking/', pathname)}>{t(language, 'cookingTimerLink')} <span aria-hidden="true">→</span></a><a className="footer-calculator-link" href={publicAssetPath(language === 'en' ? 'percent/us/' : 'percent/', pathname)}>{t(language, 'percentCalculatorLink')} <span aria-hidden="true">→</span></a></nav></footer>
+      <SiteLinks language={language} pathname={pathname} />
       </div>
       {spiritResetOpen && <SpiritResetDialog language={language} onCancel={() => setSpiritResetOpen(false)} onConfirm={confirmSpiritReset} />}
-      <PageGuide language={language} kind="timer" />
     </>
   );
 }
@@ -365,7 +369,7 @@ export function App({ language = languageFromPath(), pathname = globalThis.locat
 // Directory URLs without a trailing slash can reach the static HTML fallback.
 // Normalize before mounting so tool URLs open their own entry pages.
 if (typeof window !== 'undefined') {
-  if (/\/(?:percent(?:\/us)?|cooking)$/.test(window.location.pathname)) {
+  if (/\/(?:percent(?:\/us)?|cooking|(?:about|contact|privacy|guides(?:\/(?:focus-timer|percent-calculator|cooking-timer))?)(?:\/us)?)$/.test(window.location.pathname)) {
     window.location.replace(`${window.location.pathname}/${window.location.search}${window.location.hash}`);
   } else {
     createRoot(document.getElementById('root')).render(<App />);

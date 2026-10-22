@@ -8,6 +8,32 @@ function storageWith(profile) {
   return { getItem: (key) => values.get(key) ?? null, setItem: (key, value) => values.set(key, value) };
 }
 
+test('unchanged stored plants retain their reference across timer ticks and refreshes', () => {
+  const tracker = new SpiritTracker(storageWith(), () => 0);
+  tracker.profile.totalMilliseconds = PLANT_INTERVAL_MS;
+  tracker.growPlants();
+  tracker.save();
+  const plants = tracker.profile.forestPlants;
+  tracker.begin(10000, 1000);
+  tracker.tick(2000);
+  assert.strictEqual(tracker.profile.forestPlants, plants);
+  tracker.refresh();
+  assert.strictEqual(tracker.profile.forestPlants, plants);
+});
+
+test('same-length cross-tab plant changes and resets are still applied', () => {
+  const tracker = new SpiritTracker(storageWith(), () => 0);
+  tracker.profile.totalMilliseconds = PLANT_INTERVAL_MS;
+  tracker.growPlants();
+  const plants = tracker.profile.forestPlants;
+  const changed = plants.map(plant => ({ ...plant, kind: plant.kind === 'woodland-fern' ? 'grass-tuft' : 'woodland-fern' }));
+  tracker.merge({ ...tracker.profile, forestPlants: changed });
+  assert.strictEqual(tracker.profile.forestPlants, changed);
+  tracker.merge({ ...tracker.profile, resetAt: 100, totalMilliseconds: 0, forestPlants: [] });
+  assert.deepEqual(tracker.profile.forestPlants, []);
+  assert.equal(tracker.profile.totalMilliseconds, 0);
+});
+
 test('assigns one of the three spirits once and restores it without rerolling', () => {
   for (const [random, species] of [[0, 'sprout-spirit'], [0.5, 'mushroom-sprite'], [0.999, 'moss-stone-spirit']]) {
     const storage = storageWith();

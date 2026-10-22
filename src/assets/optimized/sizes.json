@@ -1,0 +1,116 @@
+[
+  {
+    "source": "spirit-forest-background.webp",
+    "file": "forest-desktop.webp",
+    "originalBytes": 1782828,
+    "bytes": 362578
+  },
+  {
+    "source": "spirit-forest-background.webp",
+    "file": "forest-mobile.webp",
+    "originalBytes": 1782828,
+    "bytes": 199318
+  },
+  {
+    "source": "tamagotchi/concepts/sprout-spirit.webp",
+    "file": "sprout-spirit.webp",
+    "originalBytes": 426862,
+    "bytes": 33516
+  },
+  {
+    "source": "tamagotchi/evolutions/sprout-spirit-evolution-1.webp",
+    "file": "sprout-spirit-evolution-1.webp",
+    "originalBytes": 570682,
+    "bytes": 45170
+  },
+  {
+    "source": "tamagotchi/evolutions/sprout-spirit-evolution-2.webp",
+    "file": "sprout-spirit-evolution-2.webp",
+    "originalBytes": 842896,
+    "bytes": 64514
+  },
+  {
+    "source": "tamagotchi/evolutions/sprout-spirit-evolution-3.webp",
+    "file": "sprout-spirit-evolution-3.webp",
+    "originalBytes": 759442,
+    "bytes": 60950
+  },
+  {
+    "source": "tamagotchi/concepts/mushroom-sprite.webp",
+    "file": "mushroom-sprite.webp",
+    "originalBytes": 424990,
+    "bytes": 29580
+  },
+  {
+    "source": "tamagotchi/evolutions/mushroom-sprite-evolution-1.webp",
+    "file": "mushroom-sprite-evolution-1.webp",
+    "originalBytes": 513018,
+    "bytes": 35988
+  },
+  {
+    "source": "tamagotchi/evolutions/mushroom-sprite-evolution-2.webp",
+    "file": "mushroom-sprite-evolution-2.webp",
+    "originalBytes": 735728,
+    "bytes": 52312
+  },
+  {
+    "source": "tamagotchi/evolutions/mushroom-sprite-evolution-3.webp",
+    "file": "mushroom-sprite-evolution-3.webp",
+    "originalBytes": 792964,
+    "bytes": 57216
+  },
+  {
+    "source": "tamagotchi/concepts/moss-stone-spirit.webp",
+    "file": "moss-stone-spirit.webp",
+    "originalBytes": 504158,
+    "bytes": 35448
+  },
+  {
+    "source": "tamagotchi/evolutions/moss-stone-spirit-evolution-1.webp",
+    "file": "moss-stone-spirit-evolution-1.webp",
+    "originalBytes": 740160,
+    "bytes": 54976
+  },
+  {
+    "source": "tamagotchi/evolutions/moss-stone-spirit-evolution-2.webp",
+    "file": "moss-stone-spirit-evolution-2.webp",
+    "originalBytes": 1036502,
+    "bytes": 76432
+  },
+  {
+    "source": "tamagotchi/evolutions/moss-stone-spirit-evolution-3.webp",
+    "file": "moss-stone-spirit-evolution-3.webp",
+    "originalBytes": 1055670,
+    "bytes": 71804
+  },
+  {
+    "source": "woodland-plants/soft-pixel-v2/grass.webp",
+    "file": "grass.webp",
+    "originalBytes": 552308,
+    "bytes": 182740
+  },
+  {
+    "source": "woodland-plants/soft-pixel-v2/fern.webp",
+    "file": "fern.webp",
+    "originalBytes": 992818,
+    "bytes": 340740
+  },
+  {
+    "source": "woodland-plants/soft-pixel-v2/shrub.webp",
+    "file": "shrub.webp",
+    "originalBytes": 890050,
+    "bytes": 275552
+  },
+  {
+    "source": "woodland-plants/wildflower-clump.webp",
+    "file": "wildflower-clump.webp",
+    "originalBytes": 660262,
+    "bytes": 244208
+  },
+  {
+    "source": "woodland-plants/young-sapling.webp",
+    "file": "young-sapling.webp",
+    "originalBytes": 606594,
+    "bytes": 231074
+  }
+]

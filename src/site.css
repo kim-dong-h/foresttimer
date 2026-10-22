@@ -1,0 +1,52 @@
+.site-navigation, .site-links { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 6px 18px; }
+.site-navigation { width: 100%; padding: 12px 0; border-bottom: 1px solid #78917466; }
+.site-navigation a { display: inline-flex; align-items: center; min-height: 40px; padding: 6px 4px; color: #d2d9bd; font-size: 12px; line-height: 1.6; text-decoration: none; }
+.site-navigation a[aria-current='page'], .site-links a[aria-current='page'] { color: #efd088; text-decoration: underline; text-underline-offset: 6px; }
+.site-navigation a:hover, .site-links a:hover { color: #fff2be; }
+.site-links { padding: 12px 0 24px; }
+.site-links a { display: inline-flex; align-items: center; min-height: 40px; padding: 6px 2px; color: #b6c5a7; font-size: 11px; text-decoration: none; }
+.content-shell { position: relative; z-index: 1; max-width: 1060px; margin: 0 auto; padding: 0 32px; }
+.content-main { display: block; padding: 40px 0; }
+.content-heading { position: relative; margin-bottom: 28px; }
+.content-eyebrow { color: #c0cdac; font-size: 10px; letter-spacing: 2px; }
+.content-heading h1 { max-width: 820px; margin: 18px 0; color: #f4edd6; font-size: clamp(24px, 4vw, 36px); font-weight: 400; letter-spacing: -1px; line-height: 1.6; }
+.content-intro { max-width: 740px; color: #cbd4bb; font-size: 14px; line-height: 2; }
+.content-meta { display: flex; flex-wrap: wrap; gap: 6px 18px; color: #b4c4a5; font-size: 11px; line-height: 1.8; }
+.content-language { display: inline-flex; min-height: 40px; align-items: center; color: #efd088; font-size: 12px; text-underline-offset: 5px; }
+.content-article { padding: 30px 34px; border: 3px solid #8b9d7c; box-shadow: 5px 6px 0 #152b23; background: #f4efd9; color: #344b36; font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 16px; line-height: 1.95; overflow-wrap: anywhere; }
+.content-article section + section { margin-top: 34px; padding-top: 24px; border-top: 1px solid #b7c4a0; }
+.content-article h2 { margin: 0 0 16px; font-size: 22px; color: #304f38; line-height: 1.6; }
+.content-article h3 { margin: 22px 0 12px; font-size: 18px; line-height: 1.7; }
+.content-article p { margin: 12px 0; }
+.content-article li { margin: 8px 0; }
+.content-article a { color: #315f43; text-underline-offset: 4px; }
+.content-article .content-action { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; margin: 12px 0; padding: 8px 16px; border: 2px solid #a98b4f; background: #efd088; color: #4c4228; font-weight: 600; text-decoration: none; }
+.content-callout { margin: 20px 0; padding: 16px 20px; border-left: 4px solid #8ba573; background: #e4e9ce; }
+.content-table-scroll { max-width: 100%; overflow-x: auto; margin: 20px 0; }
+.content-table { width: 100%; min-width: 480px; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+.content-table caption { text-align: left; font-weight: 600; margin-bottom: 10px; }
+.content-table th, .content-table td { text-align: left; vertical-align: top; border: 1px solid #afbd97; padding: 10px 12px; }
+.content-table th { background: #e0e7c6; }
+.guide-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.guide-card { padding: 20px; border: 1px solid #a9ba94; background: #e9edd6; }
+.guide-card h2 { font-size: 19px; }
+.guide-card p { font-size: 15px; }
+.content-toc { display: flex; flex-wrap: wrap; gap: 10px 20px; padding: 0; list-style: none; }
+.content-toc a { display: inline-flex; min-height: 40px; align-items: center; }
+.guide-inline-examples { padding: 12px 16px; background: #314b39; border-left: 3px solid #a8bd85; }
+.page-guide .guide-detail-link { display: inline-flex; align-items: center; min-height: 44px; color: #efd088; text-underline-offset: 4px; }
+.app-shell > .page-guide { width: 100%; max-width: none; margin: 22px 0; }
+.cooking-guide-detail { margin-bottom: 30px; padding: 20px; background: #2b4536; border: 1px solid #789174; color: #cbd4bb; font-size: 12px; line-height: 1.9; }
+.cooking-guide-detail h2 { margin: 0 0 12px; font-size: 17px; color: #e4dfb8; font-weight: 400; }
+.cooking-guide-detail a { display: inline-flex; align-items: center; min-height: 44px; color: #efd088; text-underline-offset: 4px; }
+@media (max-width: 680px) {
+  .site-navigation { gap: 4px 12px; justify-content: flex-start; }
+  .site-navigation a { font-size: 11px; }
+  .site-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); justify-items: start; gap: 4px 16px; }
+  .content-shell { padding: 0 18px; }
+  .content-main { padding: 24px 0 30px; }
+  .content-article { padding: 20px 17px; font-size: 15px; }
+  .content-article h2 { font-size: 20px; }
+  .content-intro { font-size: 12px; }
+  .guide-grid { grid-template-columns: 1fr; }
+}

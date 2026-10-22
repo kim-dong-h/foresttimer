@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import { FOREST_SLOTS, PLANT_WIDTH_FACTORS } from './forestGrowth.js';
 import { forestPlantAssets } from './forestPlantAssets.js';
 import { FOREST_PIXEL_SIZE, loadPlantTextures } from './forestPlantTextures.js';
 
-export default function ForestPlants({ plants, foreground = false, assets = forestPlantAssets }) {
+function ForestPlants({ plants, foreground = false, assets = forestPlantAssets }) {
   const [loaded, setLoaded] = useState(null);
   const textures = loaded?.assets === assets ? loaded.textures : null;
   const visiblePlants = useMemo(() => plants.filter(({ slot }) => (FOREST_SLOTS[slot].y > 808) === foreground)
@@ -44,3 +44,5 @@ export default function ForestPlants({ plants, foreground = false, assets = fore
     </g>
   );
 }
+
+export default memo(ForestPlants);

@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://forest-timer.com/</loc>
-  </url>
-  <url>
-    <loc>https://forest-timer.com/us/</loc>
-  </url>
-  <url>
-    <loc>https://forest-timer.com/percent/</loc>
-  </url>
-  <url>
-    <loc>https://forest-timer.com/percent/us/</loc>
-  </url>
-  <url>
-    <loc>https://forest-timer.com/cooking/</loc>
-  </url>
+  <url><loc>https://forest-timer.com/</loc></url>
+  <url><loc>https://forest-timer.com/us/</loc></url>
+  <url><loc>https://forest-timer.com/percent/</loc></url>
+  <url><loc>https://forest-timer.com/percent/us/</loc></url>
+  <url><loc>https://forest-timer.com/cooking/</loc></url>
+  <url><loc>https://forest-timer.com/about/</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://forest-timer.com/about/us/</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://forest-timer.com/contact/</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://forest-timer.com/contact/us/</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://forest-timer.com/privacy/</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://forest-timer.com/privacy/us/</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://forest-timer.com/guides/</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://forest-timer.com/guides/us/</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://forest-timer.com/guides/focus-timer/</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://forest-timer.com/guides/focus-timer/us/</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://forest-timer.com/guides/percent-calculator/</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://forest-timer.com/guides/percent-calculator/us/</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://forest-timer.com/guides/cooking-timer/</loc><lastmod>2026-10-22</lastmod></url>
+  <url><loc>https://forest-timer.com/guides/cooking-timer/us/</loc><lastmod>2026-10-22</lastmod></url>
 </urlset>
